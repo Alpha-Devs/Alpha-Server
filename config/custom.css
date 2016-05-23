@@ -1,0 +1,338 @@
+/* Classes */
+.astext {
+    font-family: Arial, sans-serif
+}
+
+/* Body and stuff */
+
+body {
+    background-image: url(http://i.imgur.com/x2XVaCY.png);
+    background-color: #0066ff;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.dark body {
+    background-image: url(http://i.imgur.com/x2XVaCY.png);
+    background-color: #003380;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.ps-room.ps-room-light {
+    background: rgba(255, 255, 255, 0.7);
+    border-color: #004d66;
+}
+
+.ps-room.ps-room-light.scrollable {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.dark .ps-room.ps-room-light.scrollable {
+    background: rgba(0, 34, 51, 0.8);
+}
+
+.rooms-officialchatrooms, .rooms-chatrooms {
+    color: #004d66;
+}
+
+.dark .rooms-officialchatrooms, .dark .rooms-chatrooms {
+    color: #006699;
+}
+
+.ps-room.ps-room-light.scrollable p {
+    color: #004d66;
+}
+
+.dark .ps-room.ps-room-light.scrollable p {
+    color: #006699;
+}
+
+.ps-room.ps-room-light.scrollable .button {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid;
+    border-color: #002133;
+}
+
+.ps-room.ps-room-light.scrollable .button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #00111a;
+}
+
+.chat.mine, .dark .chat.mine {
+    background: rgba(0, 0, 0, 0.0);
+}
+
+.broadcast-blue  {
+    background: #204060;
+    border: 1px solid;
+    border-color: #002133;
+    text-align: center;
+    padding: 8px;
+    margin: 5px;
+}
+
+.broadcast-blue button {
+    background: #006bb3;
+    border: 1px solid;
+    color: #e6f2ff;
+    padding: 2px 8px;
+}
+
+.broadcast-blue a {
+    background: #2d5986;
+}
+
+.broadcast-blue button:hover {
+    background: #0059b3;
+}
+
+.ps-overlay {
+    background: rgba(0, 0, 0, 0.35)
+}
+
+.dark .ps-overlay {
+    background: rgba(0, 0, 0, 0.5);
+}
+/* Header */
+
+.header {
+    background: rgba(0, 153, 230, 0.4);
+}
+
+.dark .header {
+    background: rgba(0, 34, 51, 0.8);
+}
+.maintabbarbottom {
+    background: #0099e6;
+    opacity: 0.5;
+}
+
+.dark .maintabbarbottom {
+    background: #002233;
+    opacity: 0.7;
+}
+
+.tabbar a.button {
+    border-color: #0099e6;
+    background: rgba(0, 153, 230, 0.5);
+    color: rgba(0, 153, 230, 0.5);
+}
+
+.dark .tabbar a.button {
+    background: rgba(0, 34, 51, 0.7);
+    color: #BBB;
+    border-color: #222222;
+    text-shadow: 0px 0px 2px #00091a;
+}
+
+.tabbar a.button:hover {
+    background: rgba(0, 153, 230, 0.9);
+}
+
+.dark .tabbar a.button:hover {
+    background: #005580;
+}
+
+.tabbar a.button.notifying {
+    background: #FFE0A7;
+    border-color: rgba(0, 153, 230, 0.5);
+    color: rgba(0, 153, 230, 0.5);
+}
+
+.tabbar a.button.notifying:hover {
+    background: #F9D990;  
+    border-color: rgba(255, 255, 128, 0.5);
+    color: rgba(255, 255, 128, 0.5);
+}
+
+.tabbar a.button.subtle-notifying, .tabbar a.button.subtle-notifying:hover {
+    color: rgba(255, 255, 128, 0.5);
+}
+
+.userbar button.icon {
+  border: 1px solid #0099e6;
+  background: rgba(0, 153, 230, 0.5);
+  color: #0099e6;
+  text-shadow: 0px 0px 2px #00111a;
+}
+
+.dark .userbar button.icon {
+    border: 1px solid #222;
+    background: rgb(0, 34, 51);
+    color: #0099e6;
+    text-shadow: 0px 0px 2px #00091a;
+}
+
+.userbar .username {
+  text-shadow: 1px 1px 0px #11484F, 1px -1px 0px #11484F, -1px 1px 0px #11484F, -1px -1px 0px #11484F;
+}
+
+.dark .userbar .username {
+  text-shadow: 1px 1px 0px #111, 1px -1px 0px #111, -1px 1px 0px #111, -1px -1px 0px #111;
+}
+
+/* Room List */
+
+.roomlist a.ilink, .roomcounters button {
+  color: #11484F;
+}
+
+
+/* Default Pm window */
+
+.pm-window h3 {
+    border-color: #006699;
+    background: rgba(0, 85, 128, 0.6) url(http://cdn.bulbagarden.net/upload/1/11/382MS.png) right no-repeat;
+    background-position: 215px;
+    color: rgba(159, 191, 223, 0.7);
+}
+
+.dark .pm-window h3 {
+    border-color: #002133;
+    background: rgba(0, 34, 51, 0.8) url(http://cdn.bulbagarden.net/upload/1/11/382MS.png) right no-repeat;
+    background-position: 215px;
+    color: #0086b3;
+}
+
+.pm-window h3:hover {
+    background: rgba(0, 85, 128, 0.6) url(http://cdn.bulbagarden.net/upload/1/11/382MS.png) right no-repeat;
+    background-position: 215px;
+    color: #0086b3;
+}
+
+.dark .pm-window h3:hover {
+    background: rgba(0, 34, 51, 0.8) url(http://cdn.bulbagarden.net/upload/1/11/382MS.png) right no-repeat;
+    background-position: 215px;
+    color: #0086b3
+}
+
+.pm-window h3 small {
+    color: #e6f2ff;
+}
+
+.pm-window.focused h3, .pm-window.focused h3:hover {
+    border-color: #002133;
+    background: rgba(0, 34, 51, 0.8) url(http://cdn.bulbagarden.net/upload/1/11/382MS.png) right no-repeat;
+    background-position: 215px;
+    color: rgba(159, 191, 223, 0.7);
+}
+
+/* CHAT */
+.userlist {
+  background: rgba(31, 122, 122, 0.5);
+  border-color: #1f7a7a;
+  color: #1f7a7a;
+}
+.dark .userlist {
+  background: rgba(16, 43, 60, 0.8);
+  border-color: #102b3c;
+  color: #102b3c;
+}
+
+.userlist li {
+  background: rgba(230, 247, 255, 0.8);
+  border-color: #1f7a7a;
+}
+.dark .userlist li {
+  background: rgba(230, 247, 255, 0.8);
+  border-color: #214a5f;
+}
+
+.userlist li em.group {
+  color: #1f7a7a;
+}
+.dark .userlist li em.group {
+  color: #333;
+}
+
+.dark .userlist strong, .dark .userlist span {
+  text-shadow: 0px 0px 1px #FFF;
+}
+
+.dark .userlist li button span {
+  text-shadow: 0px 0px 1px #EEE;
+}
+
+.userlist li button:hover, .userlist-minimized .userlist-count:hover, .dark .userlist li button:hover, .dark .userlist-minimized .userlist-count:hover {
+  background: rgba(230, 247, 255, 0.8);
+}
+
+.infobox {
+  border-color: #1f7a7a;
+}
+
+.chat-log, .dark .chat-log {
+  color: #000;
+}
+
+.chat-log .chat small, .dark .chat-log .chat small {
+  color: #1f7a7a;
+}
+
+.chat-log .chat.mine.chat small {
+  color: #124b54;
+}
+
+.chat-log-add {
+  border-color: #002133;
+  background: rgba(0, 85, 128, 0.6);
+}
+
+.chat-log-add .textbox {
+  border-color: #002133;
+}
+
+.chatbox label {
+  text-shadow: 0px 0px 2px #002133;
+}
+
+/* Tour */
+
+.tournament-title {
+    background: rgba(0, 153, 230, 0.4);
+    color: #35647e;
+}
+
+.dark .tournament-title {
+    background: rgba(16, 43, 60, 0.8);
+    color: #006699;
+}
+
+.tournament-status, .tournament-toggle {
+    background: rgba(230, 247, 255, 0.8);
+    border-color: #1f7a7a;
+    color: #1f7a7a;
+}
+
+.tournament-tools {
+    border-color: #1f717a;
+    background: rgba(0, 85, 128, 0.6);
+}
+
+.dark .tournament-tools {
+    background: rgba(0, 34, 51, 0.8);
+    border-color: #002133
+}
+
+.tournament-tools .select {
+    border-color: #1f7a7a;
+    background: #006699;
+    color:  #004466;
+}
+
+.tournament-tools .select:hover {
+    background: #0077b3;
+}
+
+.tournament-tools .select:disabled, .tournament-tools .select:disabled:hover {
+    background: rgba(0, 102, 153, 0.45);
+    color: #1f7a7a;
+    border-color: #1f7a7a;
+}
+
+.tournament-tools .button {
+    border-color: #1f7a7a;
+    background: #006699;
+    color: #004466;
+}
