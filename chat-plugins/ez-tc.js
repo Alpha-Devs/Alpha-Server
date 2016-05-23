@@ -62,7 +62,7 @@ exports.commands = {
 
 			case 'list':
 				if (!this.can('trainercard')) return false;
-				var output = "<b>There's a total of " + Object.size(trainerCards) + " trainer cards added with this command:</b><br />";
+				var output = "<b>There's a total of " + Object.keys(trainerCards).length + " trainer cards added with this command:</b><br />";
 				for (var tc in trainerCards) {
 					output += tc + "<br />";
 				}
