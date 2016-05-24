@@ -20,6 +20,22 @@ if (typeof demFeels.extendEmotes === 'function') {
 		'(ditto)': 'https://cdn.betterttv.net/emote/554da1a289d53f2d12781907/2x',
 		'#freewolf': 'http://i.imgur.com/ybxWXiG.png',
 		'feelsbn': 'http://i.imgur.com/wp51rIg.png',
+		'feelshayley': 'http://orig09.deviantart.net/5a7d/f/2010/131/6/c/free_vaporeon_lick_icon_by_narutard33.gif',
+		'feelsbui': 'http://a.deviantart.net/avatars/r/i/rijaya-vidra.gif?2',
+		'feelsjay': 'http://orig01.deviantart.net/1b84/f/2013/311/3/1/free_bouncy_spheal_icon_by_kattling-d6tdi31.gif',
+		'feelsleaf': 'http://a.deviantart.net/avatars/a/l/alucakes.gif?4',
+		'bshax': 'https://static-cdn.jtvnw.net/emoticons/v1/37025/2.0',
+		'youdontsay': 'http://r32.imgfast.net/users/3215/23/26/64/smiles/280467785.jpg',
+		'xoxo': 'http://orig00.deviantart.net/b49d/f/2014/220/5/3/ichigo_not_impressed_icon_by_magical_icon-d7u92zg.png',
+		'feelsotami': 'http://images5.fanpop.com/image/user_images/3475000/Ciel_-3475109_50_50.png',
+		'feelsmiku': 'http://orig02.deviantart.net/bba8/f/2014/043/1/9/hatsune_miku_by_mikumikudancexxx-d765fzq.gif',
+		'feelsamp': 'http://orig06.deviantart.net/d756/f/2015/255/f/3/pokemon_ampharos_lick_icon___free_to_use_by_icelemontea83-d97jr15.gif',
+		'feelslick': 'http://a.deviantart.net/avatars/d/a/darkclaw8980.gif?6',
+		'feelsluxray': 'http://media-cerulean.cursecdn.com/avatars/316/712/635515869333876405.gif',
+		'feelsumbreon': 'http://orig14.deviantart.net/ef78/f/2011/043/b/9/umbreon_lick_icon_by_mushydog-d39f8n4.gif',
+		'feelsshinx': 'http://orig02.deviantart.net/2897/f/2010/232/e/0/shinx_free_lick_avatar_by_yakalentos.gif',
+		'feelslugia': 'http://a.deviantart.net/avatars/s/k/skyewolf36.gif?9',
+		'pjsalt': 'http://orig05.deviantart.net/99d1/f/2015/358/a/9/pjsalt_twitch_emote_by_xenoblast1-d9lc7ni.png',
 	});
 }
 
