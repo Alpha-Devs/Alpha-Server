@@ -36,6 +36,8 @@ if (typeof demFeels.extendEmotes === 'function') {
 		'feelsshinx': 'http://orig02.deviantart.net/2897/f/2010/232/e/0/shinx_free_lick_avatar_by_yakalentos.gif',
 		'feelslugia': 'http://a.deviantart.net/avatars/s/k/skyewolf36.gif?9',
 		'pjsalt': 'http://orig05.deviantart.net/99d1/f/2015/358/a/9/pjsalt_twitch_emote_by_xenoblast1-d9lc7ni.png',
+		'feelsevil': 'http://i.imgur.com/zOemc0n.png',
+		'feelspuke': 'http://i.imgur.com/nQbRspU.png?1',
 	});
 }
 
