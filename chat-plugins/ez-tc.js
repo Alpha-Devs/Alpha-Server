@@ -90,7 +90,7 @@ exports.commands = {
 			default:
 			case 'info':
 			case 'help':
-				if (!this.canBroadcast()) return;
+				if (!this.runBroadcast()) return;
 				this.sendReplyBox(
 					"EZ-TC Commands:<br />" +
 					"/trainercard add, [command name], [html] - Adds a trainer card.<br />" +
