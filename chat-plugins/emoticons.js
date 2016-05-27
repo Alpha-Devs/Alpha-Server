@@ -163,6 +163,7 @@ if (typeof demFeels.extendEmotes === 'function') {
 	'yesface': 'http://i.imgur.com/k9YCF6K.png',
 	'youdontsay': 'http://r32.imgfast.net/users/3215/23/26/64/smiles/280467785.jpg',
 	'feelsmoa': 'http://i.imgur.com/943QIfz.jpg?1',
+	'feelsfox': 'http://orig10.deviantart.net/4383/f/2012/172/f/1/victini_lick_avatar_by_neogalactic54-d54daqi.gif',
 	});
 }
 
