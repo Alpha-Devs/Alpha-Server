@@ -262,8 +262,12 @@ body {
   border-color: #1f7a7a;
 }
 
-.chat-log, .dark .chat-log {
+.chat-log {
   color: #000;
+}
+
+.dark .chat-log {
+    color: #FFF;
 }
 
 .chat-log .chat small, .dark .chat-log .chat small {
