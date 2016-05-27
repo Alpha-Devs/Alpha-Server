@@ -41,7 +41,7 @@ load_custom_avatars();
 exports.commands = {
 	customavatar: {
 		set: function (target, room, user) {
-			if (!this.can('customavatar') && !isVip(user)) return false;
+			if (!this.can('lock') && !isVip(user)) return false;
 
 			const parts = target.split(',');
 
@@ -65,7 +65,7 @@ exports.commands = {
 		},
 
 		delete: function (target, room, user) {
-			if (!this.can('customavatar')) return false;
+			if (!this.can('lock')) return false;
 
 			const userid = toId(target);
 			const image = Config.customavatars[userid];
