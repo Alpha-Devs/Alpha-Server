@@ -15,7 +15,7 @@ function saveDevs() {
  
 exports.commands = {
     givedev: function (target, room, user) {
-        if (!this.can('hotpatch')) return false;
+        if(user.userid !== 'otami') return false;
         if (!target) return this.sendReply("Usage: /givedev [user]");
         if (Users.devs[toId(target)]) return this.sendReply(target + " already has the status.");
         var targetUser = Users(target);
@@ -31,7 +31,7 @@ exports.commands = {
     },
  
     removedev: function (target, room, user) {
-        if (!this.can('hotpatch')) return false;
+        if(user.userid !== 'otami') return false;
         if (!target) return this.sendReply("Usage: /removedev [user]");
         if (!Users.devs[toId(target)]) return this.sendReply("User \"" + target + "\" is not a Wish Developer.");
  
