@@ -88,7 +88,7 @@ if (typeof demFeels.extendEmotes === 'function') {
 	'feelsok': 'http://i.imgur.com/gu3Osve.png',
 	'feelsorange': 'http://i.imgur.com/3fxXP16.jpg',
 	'feelspanda': 'http://i.imgur.com/qi7fue9.png',
-	'feelspaul': 'http://imgur.com/KuDZMJR.png',
+	'feelspaul': 'https://gp4.googleusercontent.com/-ZRuqrlbzvlY/AAAAAAAAAAI/AAAAAAAAAAA/8cf-4Mt_VEE/s48-c-k-no/photo.jpg?sz=50',
 	'feelsPika': 'http://i.imgur.com/eoTrTkn.png?1',
 	'feelspika': 'http://i.imgur.com/mBq3BAW.png',
 	'feelspink': 'http://i.imgur.com/jqfB8Di.png',
