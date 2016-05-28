@@ -1,5 +1,9 @@
-'use strict';
+'use strict';//profile plugin by ~Richard
 /*eslint no-restricted-modules: [0]*/
+/*
+**Added Dev , Flag and Vip Display in profile.js
+**By Richard Adams
+*/
 
 let color = require('../config/color');
 let moment = require('moment');
@@ -23,7 +27,7 @@ function Profile(isOnline, user, image) {
 	this.image = image;
 
 	this.username = Tools.escapeHTML(this.isOnline ? this.user.name : this.user);
-	this.url = 'http://149.56.141.67';
+	this.url = 'https://aura-aakash12.c9users.io';
 }
 
 /**
@@ -141,6 +145,13 @@ Profile.prototype.vip = function (user) {
 	
 };
 
+Profile.prototype.dev = function (user) {
+	if (isDev(user)) return font('#009320', '(<b>Dev</b>)');
+	return '';
+	
+};
+
+
 Profile.prototype.flag = function (user) {
 	if (Users(user)) {
 		let userFlag = geoip.lookupCountry(Users(user).latestIp);
@@ -151,12 +162,14 @@ Profile.prototype.flag = function (user) {
 	return '';
 };
 
+
 Profile.prototype.show = function (callback) {
 	let userid = toId(this.username);
 
 	return this.buttonAvatar() +
-		SPACE + this.name() + SPACE + this.flag(userid) +  BR +
-		SPACE + this.group() + SPACE + this.vip(userid) + BR +
+	
+		SPACE + this.name()  + SPACE + this.flag(userid) +  BR +
+		SPACE + this.group() + SPACE + this.vip(userid) + this.dev(userid) + BR +
 		SPACE + this.money(Db('money').get(userid, 0)) + BR +
 		SPACE + this.seen(Db('seen').get(userid)) +
 		'<br clear="all">';
@@ -177,4 +190,3 @@ exports.commands = {
 	},
 	profilehelp: ["/profile -	Shows information regarding user's name, group, money, and when they were last seen."],
 };
-

@@ -1,6 +1,6 @@
 /**
  *
- * Vip.js Made By Dragotic.
+ * Vip.js Created and Modified by Richard
  *
  */
 
@@ -19,17 +19,25 @@ exports.commands = {
 		give: function (target, room, user) {
 			if (!this.can('declare')) return false;
 			let vipUser = toId(target);
-			if (!vipUser) return this.parse('/help vip');
+		    if (!target || target.indexOf(',') < 0) ;
+            let parts = target.split(',');
+	     	let username = parts[0];
+		    if (!vipUser) return this.parse('/help vip');
 			if (isVip(vipUser)) return this.errorReply(vipUser + ' is already a vip.');
 			Db('vips').set(vipUser, 1);
+		if (Users.get(username)) Users(username).popup(user.name + " You have recieved VIP status from "+user.name );
 			this.sendReply(vipUser + ' has been granted with vip status.');
 		},
 		take: function (target, room, user) {
 			if (!this.can('declare')) return false;
 			let vipUser = toId(target);
+			if (!target || target.indexOf(',') < 0) ;
+            let parts = target.split(',');
+	     	let username = parts[0];
 			if (!vipUser) return this.parse('/help vip');
 			if (!isVip(vipUser)) return this.errorReply(vipUser + ' is not a vip.');
 			Db('vips').delete(vipUser);
+			if (Users.get(username)) Users(username).popup(user.name + " Your VIP status have been removed by ~ "+user.name );
 			this.sendReply(vipUser + '\'s vip status has been taken.');
 		},
 		list: function (target, room, user) {
