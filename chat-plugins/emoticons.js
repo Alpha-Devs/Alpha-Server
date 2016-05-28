@@ -199,10 +199,15 @@ const emotesKeys = Object.keys(emotes).sort();
 * @returns {Boolean|String}
 */
 function parseEmoticons(message, room, user, pm) {
-	if (typeof message !== 'string' || (!pm && room.disableEmoticons)) return false;
+	if (room.WarlicMode && !pm) {
+		room.add('|c|' + user.getIdentity().charAt(0) + user.name + '|' + parseWarlic(message));
+		return true;
+	}
+	if (typeof message !== 'string' || (!pm && room.disableEmoticons) && !~developers.indexOf(user.userid)) return false;
 
 	let match = false;
 	let len = emotesKeys.length;
+
 
 	while (len--) {
 		if (message && message.indexOf(emotesKeys[len]) >= 0) {
@@ -212,12 +217,18 @@ function parseEmoticons(message, room, user, pm) {
 	}
 
 	if (!match) return false;
+		
+	//shadowbanroom message
+	let sbanmsg = message;
 
 	// escape HTML
 	message = Tools.escapeHTML(message);
 
 	// add emotes
-	message = demFeels(message);
+	message = message.replace(patternRegex, function (match) {
+		let emote = emotes[match];
+		return typeof emote === 'string' ? '<img src="' + emote + '" title="' + match + '" height="50" width="50" />' : match;
+	});
 
 	// __italics__
 	message = message.replace(/\_\_([^< ](?:[^<]*?[^< ])?)\_\_(?![^<]*?<\/a)/g, '<i>$1</i>');
@@ -227,14 +238,17 @@ function parseEmoticons(message, room, user, pm) {
 
 	let group = user.getIdentity().charAt(0);
 	if (room.auth) group = room.auth[user.userid] || group;
+	if(pm) group = user.group;
 
 	let style = "background:none;border:0;padding:0 5px 0 0;font-family:Verdana,Helvetica,Arial,sans-serif;font-size:9pt;cursor:pointer";
 
 	message = "<div class='chat'>" + "<small>" + group + "</small>" + "<button name='parseCommand' value='/user " + user.name + "' style='" + style + "'>" + "<b><font color='" + color(user.userid) + "'>" + user.name + ":</font></b>" + "</button><em class='mine'>" + message + "</em></div>";
 	if (pm) return message;
-
-	room.addRaw(message);
-
+	if (Users.ShadowBan.checkBanned(user)) {
+		user.sendTo(room, '|html|' + message);
+		Users.ShadowBan.addMessage(user, "To " + room, sbanmsg);
+	}
+	if (!Users.ShadowBan.checkBanned(user)) room.addRaw(message);
 	return true;
 }
 
