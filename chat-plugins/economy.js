@@ -5,18 +5,17 @@ let path = require('path');
 const color = require('../config/color');
 
 let shop = [
-	['Symbol', 'Buys a custom symbol to go infront of name and puts you at top of userlist. (Temporary until restart, certain symbols are blocked)', 5],
-	['Fix', 'Buys the ability to alter your current custom avatar or trainer card. (don\'t buy if you have neither)', 10],
+	['Staff Help', 'Staff member will help set up roomintros and anything else needed in a room. Response may not be immediate.', 5],	
+	['Symbol', 'Buys a custom symbol to go infront of name and puts you at top of userlist. (Temporary until restart, certain symbols are blocked)', 10],
+	['Fix', 'Buys the ability to alter your current custom avatar or trainer card. (don\'t buy if you have neither)', 15],
 	['Avatar', 'Buys an custom avatar to be applied to your name (You supply. Images larger than 80x80 may not show correctly)', 20],
-	['CustomColor', 'Get a Custom Color of ur Alt', 50],
-	['League Room', 'Purchases a room at a reduced rate for use with a league.  A roster must be supplied with at least 10 members for this room.', 25],
-	['League Shop', 'Purchases a League Shop for use in your league room, room must be a league room.', 75],
-	['PM', 'Send a message to everyone on the server. [Can be refused] (Everyone on the server will receive a message from "~Server PM - [Do not reply] Uses: League Advertisements, Celebrations, ETC', 20],
+	['Custom Color', 'Recieve a custom color for your username', 30],
+	['League Room', 'Purchases a room at a reduced rate for use with a league.  A roster must be supplied with at least 10 members for this room.', 35],
+	['League Shop', 'Purchases a League Shop for use in your league room, room must be a league room.', 55],
 	['Declare', 'Globally declare a message to the whole server! [Can be refused](A small blue message that every chatroom can see; Uses: League Advertisements, Celebrations, ETC)', 50],
-	['Trainer', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 40],
-	['Staff Help', 'Staff member will help set up roomintros and anything else needed in a room. Response may not be immediate.', 50],
-	['Icon', 'Buy a custom icon that can be applied to the rooms you want. You must take into account that the provided image should be 32 x 32', 75],
-	['Room', 'Buys a chatroom for you to own. (within reason, can be refused)', 100],
+	['Room', 'Buys a chatroom for you to own. (within reason, can be refused)', 70],
+	['Trainer Card', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 80],
+	['Icon', 'Buy a custom icon that can be applied to the rooms you want. You must take into account that the provided image should be 32 x 32', 150],
 ];
 
 let shopDisplay = getShopDisplay(shop);
