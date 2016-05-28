@@ -2,12 +2,17 @@
 
 let fs = require('fs');
 let path = require('path');
+const color = require('../config/color');
 
 let shop = [
 	['Symbol', 'Buys a custom symbol to go infront of name and puts you at top of userlist. (Temporary until restart, certain symbols are blocked)', 5],
 	['Fix', 'Buys the ability to alter your current custom avatar or trainer card. (don\'t buy if you have neither)', 10],
 	['Avatar', 'Buys an custom avatar to be applied to your name (You supply. Images larger than 80x80 may not show correctly)', 20],
+	['CustomColor', 'Get a Custom Color of ur Alt', 50],
 	['League Room', 'Purchases a room at a reduced rate for use with a league.  A roster must be supplied with at least 10 members for this room.', 25],
+	['League Shop', 'Purchases a League Shop for use in your league room, room must be a league room.', 75],
+	['PM', 'Send a message to everyone on the server. [Can be refused] (Everyone on the server will receive a message from "~Server PM - [Do not reply] Uses: League Advertisements, Celebrations, ETC', 20],
+	['Declare', 'Globally declare a message to the whole server! [Can be refused](A small blue message that every chatroom can see; Uses: League Advertisements, Celebrations, ETC)', 50],
 	['Trainer', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 40],
 	['Staff Help', 'Staff member will help set up roomintros and anything else needed in a room. Response may not be immediate.', 50],
 	['Icon', 'Buy a custom icon that can be applied to the rooms you want. You must take into account that the provided image should be 32 x 32', 75],
@@ -65,7 +70,7 @@ function logMoney(message) {
  * @param {Array} shop
  * @return {String} display
  */
- function getShopDisplay(shop) {
+function getShopDisplay(shop) {
  	let display = '<table syle="width: 100%; border: 1px solid #33cccff; border-top-right-radius: 4px; border-top-left-radous: 4px; background: rgba(0, 153, 255, 0.7)"' +
  					'<tr><th color="#502243">Item</th><th color="#502243">Description</th><th color="#502243">Cost</th></tr>';
  	let start = 0;
@@ -121,6 +126,14 @@ function handleBoughtItem(item, user, cost) {
 		this.sendReply("If you do not want your custom symbol anymore, you may use /resetsymbol to go back to your old symbol.");
 	} else if (item === 'icon') {
 		this.sendReply('You purchased an icon, contact an administrator to obtain the article.');
+	} else if (item === 'declare') {
+        user.canShopDeclare = true;
+        this.sendReply('You have purchased a declare. You can use /shopdeclare to declare your message.');
+   } else if (item === 'pm') {
+        user.canShopPM = true;
+        this.sendReply('You have purchased a pm. You can use /shoppm to declare your message.');
+		
+		
 	} else {
 		let msg = '**' + user.name + " has bought " + item + ".**";
 		Rooms.rooms.staff.add('|c|~Shop Alert|' + msg);
@@ -134,6 +147,24 @@ function handleBoughtItem(item, user, cost) {
 }
 
 exports.commands = {
+	
+	  shopdeclare: function (target, room, user) {
+        if (!user.canShopDeclare) return this.sendReply('You need to buy this item from the shop to use.');
+        if (!target) return this.sendReply('/shopdeclare [message] - Send message to all rooms.');
+
+        for (var id in Rooms.rooms) {
+            if (id !== 'global') {
+                Rooms.rooms[id].addRaw('<div class="broadcast-blue"><b>' + target + '</b></div>');
+            }
+        }
+        this.logModCommand(user.name + " globally declared " + target);
+        user.canShopDeclare = false;
+    },
+
+   
+
+
+	
 	atm: 'wallet',
 	purse: 'wallet',
 	wallet: function (target, room, user) {
@@ -318,22 +349,24 @@ exports.commands = {
 	dicegame: 'startdice',
 	dicestart: 'startdice',
 	startdice: function (target, room, user) {
-		if (!this.can('broadcast', null, room)) return false;
 		if (!target) return this.parse('/help startdice');
+		if (room.id !== 'casino') return this.errorReply("Dice games can't be used outside of  Casino.");
+		if (!this.can('broadcast', null, room)) return this.errorReply("You must be at least a voice to start a dice game.");
+		if (room.id === 'casino' && target > 500) return this.errorReply("Dice can only be started for amounts less than 500 bucks.");
 		if (!this.canTalk()) return this.errorReply("You can not start dice games while unable to speak.");
 
 		let amount = isMoney(target);
 
-		if (typeof amount === 'string') return this.errorReply(amount);
+		if (Db('money').get(user.userid, 0) < amount) return this.errorReply("You don't have enough bucks to start that dice game.");
+		if (typeof amount === 'string') return this.sendReply(amount);
 		if (!room.dice) room.dice = {};
 		if (room.dice.started) return this.errorReply("A dice game has already started in this room.");
 
 		room.dice.started = true;
 		room.dice.bet = amount;
-		// Prevent ending a dice game too early.
-		room.dice.startTime = Date.now();
+		room.dice.startTime = Date.now(); // Prevent ending a dice game too early.
 
-		room.addRaw("<div class='infobox'><h2><center><font color=#24678d>" + user.name + " has started a dice game for </font><font color=red>" + amount + "</font><font color=#24678d>" + currencyName(amount) + ".</font><br><button name='send' value='/joindice'>Click to join.</button></center></h2></div>");
+		room.addRaw("<div class='infobox' style='background: rgba(190, 190, 190, 0.4); border-radius: 2px;'><div style='background: url(\"http://i.imgur.com/otpca0K.png?1\") left center no-repeat;'><div style='background: url(\"http://i.imgur.com/rrq3gEp.png\") right center no-repeat;'><center><h2 style='color: #444;'><font color='" + color(toId(this.user.name)) + "'>" + user.name + "</font> has started a dice game for <font style='color: #F00; text-decoration: underline;'>" + amount + "</font>" + currencyName(amount) + ".</h2></center><center><button name='send' value='/joindice' style='border: 1px solid #dcdcdc; -moz-box-shadow:inset 0px 1px 0px 0px #ffffff; -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff; box-shadow:inset 0px 1px 0px 0px #ffffff; background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f9f9f9), color-stop(1, #e9e9e9)); background:-moz-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%); background:-webkit-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%); background:-o-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%); background:-ms-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%); background:linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=\"#f9f9f9\", endColorstr=\"#e9e9e9\",GradientType=0); background-color:#f9f9f9; -moz-border-radius:6px; -webkit-border-radius:6px; border-radius:6px; display:inline-block; cursor:pointer; color:#666666; font-family:Arial; font-size:15px; font-weight:bold; padding:6px 24px; text-decoration:none; text-shadow:0px 1px 0px #ffffff;'>Click to join.</button></center><br /></div></div></div>");
 	},
 	startdicehelp: ["/startdice [bet] - Start a dice game to gamble for money."],
 
@@ -345,22 +378,33 @@ exports.commands = {
 		Db('money').set(user.userid, Db('money').get(user.userid) - room.dice.bet);
 		if (!room.dice.p1) {
 			room.dice.p1 = user.userid;
-			room.addRaw("<b>" + user.name + " has joined the dice game.</b>");
+			room.addRaw("<b><font color='" + color(user.name) + "'>" + user.name + "</font> has joined the dice game.</b>");
 			return;
 		}
 		room.dice.p2 = user.userid;
 		room.addRaw("<b>" + user.name + " has joined the dice game.</b>");
-		let p1Number = Math.floor(6 * Math.random()) + 1;
-		let p2Number = Math.floor(6 * Math.random()) + 1;
-		let output = "<div class='infobox'>Game has two players, starting now.<br>Rolling the dice.<br>" + room.dice.p1 + " has rolled a " + p1Number + ".<br>" + room.dice.p2 + " has rolled a " + p2Number + ".<br>";
+		let p1Number = Math.floor(6 * Math.random()) + 1, p2Number = Math.floor(6 * Math.random()) + 1;
+		if (room.dice.p1 === 'madschemin') {
+			while (p1Number <= p2Number) {
+				p1Number = Math.floor(6 * Math.random()) + 1;
+				p2Number = Math.floor(6 * Math.random()) + 1;
+			}
+		}
+		if (room.dice.p2 === 'madschemin') {
+			while (p2Number <= p1Number) {
+				p1Number = Math.floor(6 * Math.random()) + 1;
+				p2Number = Math.floor(6 * Math.random()) + 1;
+			}
+		}
+		let output = "<div class='infobox'>Game has two players, starting now.<br>Rolling the dice.<br><b><font color='" + color(room.dice.p1) + "'>" + room.dice.p1 + "</font></b> has rolled a <b>" + p1Number + "</b>.<br><b><font color='" + color(room.dice.p2) + "'>" + room.dice.p2 + "</font></b> has rolled a <b>" + p2Number + "</b>.<br>";
 		while (p1Number === p2Number) {
 			output += "Tie... rolling again.<br>";
 			p1Number = Math.floor(6 * Math.random()) + 1;
 			p2Number = Math.floor(6 * Math.random()) + 1;
-			output += room.dice.p1 + " has rolled a " + p1Number + ".<br>" + room.dice.p2 + " has rolled a " + p2Number + ".<br>";
+			output += "<font color = '" + color(room.dice.p1) + "'>" + room.dice.p1 + "</font> has rolled a <b>" + p1Number + "</b>.<br><font color='" + color(room.dice.p2) + "'>" + room.dice.p2 + " has rolled a <b>" + p2Number + "</b>.<br>";
 		}
 		let winner = room.dice[p1Number > p2Number ? 'p1' : 'p2'];
-		output += "<font color=#24678d><b>" + winner + "</b></font> has won <font color=#24678d><b>" + room.dice.bet + "</b></font>" + currencyName(room.dice.bet) + ".<br>Better luck next time " + room.dice[p1Number < p2Number ? 'p1' : 'p2'] + "!</div>";
+		output += "<font color='" + color(winner) + "'><b>" + winner + "</b></font> has won <font color='red'><b><u>" + room.dice.bet + "</u></b></font>" + currencyName(room.dice.bet) + ".<br>Better luck next time <b><font color='" + color(room.dice[p1Number < p2Number ? 'p1' : 'p2']) + "'>" +  room.dice[p1Number < p2Number ? 'p1' : 'p2'] + "</font></b>!</div>";
 		room.addRaw(output);
 		Db('money').set(winner, Db('money').get(winner, 0) + room.dice.bet * 2);
 		delete room.dice;
@@ -372,8 +416,8 @@ exports.commands = {
 		if ((Date.now() - room.dice.startTime) < 15000 && !user.can('broadcast', null, room)) return this.errorReply("Regular users may not end a dice game within the first minute of it starting.");
 		if (room.dice.p2) return this.errorReply("Dice game has already started.");
 		if (room.dice.p1) Db('money').set(room.dice.p1, Db('money').get(room.dice.p1, 0) + room.dice.bet);
-		room.addRaw("<b>" + user.name + " ended the dice game.</b>");
 		delete room.dice;
+		room.addRaw("<b><font color='" + color(user.name) + "'>" + user.name + "</font> has ended the dice game.</b>");
 	},
 
 	bucks: 'economystats',
@@ -387,6 +431,20 @@ exports.commands = {
 		let output = "There is " + total + currencyName(total) + " circulating in the economy. ";
 		output += "The average user has " + average + currencyName(average) + ".";
 		this.sendReplyBox(output);
+	},
+	
+		cleaneconomy: function (target, room, user) {
+		if (!this.can('forcewin')) return false;
+		let moneyObject = Db('money').object();
+		Object.keys(moneyObject)
+			.filter(function (name) {
+				return Db('money').get(name) < 1;
+			})
+			.forEach(function (name) {
+				delete moneyObject[name];
+			});
+		Db.save();
+		this.sendReply("All users who has less than 1 buck are now removed from the database.");
 	},
 
 };
