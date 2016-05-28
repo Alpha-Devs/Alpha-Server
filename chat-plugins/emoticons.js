@@ -204,6 +204,12 @@ if (typeof demFeels.extendEmotes === 'function') {
 	'feelschik': 'http://orig10.deviantart.net/de15/f/2010/193/9/4/chikorita_free_lick_avatar_by_yakalentos.gif',
 	'(blueditto)': 'http://im.ezgif.com/tmp/ezgif-1776838979.gif',
 	'feelsgall': 'http://orig06.deviantart.net/c153/f/2011/220/0/b/galladelickicon___request_by_zekrom622-d45wcts.gif',
+	'feelsally': 'http://a.deviantart.net/avatars/m/i/miss-vulpix.gif?2',
+	'feelsarti': 'http://orig11.deviantart.net/253b/f/2011/255/a/1/articuno_for_stephany_chan___3_by_duhgetsu-d49oq2g.gif',
+	'feelsflare': 'http://orig11.deviantart.net/262c/f/2011/187/6/1/free_flareon_lick_icon_by_supersilverabsol-d3l8e0c.gif',
+	'feelsray': 'http://orig03.deviantart.net/4cf3/f/2012/011/5/f/rayquaza_lick_icon___request_by_roro_victini-d4m0pda.gif',
+	'feelsskit': 'http://orig08.deviantart.net/2e75/f/2011/036/5/0/skitty_lickie_by_blankblankety-d38vhgh.gif',
+	'feelsalpha': 'http://a.deviantart.net/avatars/k/i/kimyri.gif?1',
 	
 	
 	
