@@ -164,7 +164,7 @@ if (typeof demFeels.extendEmotes === 'function') {
 	'youdontsay': 'http://r32.imgfast.net/users/3215/23/26/64/smiles/280467785.jpg',
 	'feelsmoa': 'http://i.imgur.com/943QIfz.jpg?1',
 	'feelsfox': 'http://orig10.deviantart.net/4383/f/2012/172/f/1/victini_lick_avatar_by_neogalactic54-d54daqi.gif',
-	'PJsalt': 'http://orig05.deviantart.net/99d1/f/2015/358/a/9/pjsalt_twitch_emote_by_xenoblast1-d9lc7ni.png',
+	'PJSalt': 'http://orig05.deviantart.net/99d1/f/2015/358/a/9/pjsalt_twitch_emote_by_xenoblast1-d9lc7ni.png',
 	});
 }
 
