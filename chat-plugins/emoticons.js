@@ -174,6 +174,12 @@ if (typeof demFeels.extendEmotes === 'function') {
 	'feelssky': 'http://static.planetminecraft.com/files/avatar/605325.gif',
 	'feelsleaf': 'http://orig08.deviantart.net/6218/f/2011/257/0/3/shiny_leafeon_lick_icon_by_supersilverabsol-d49t0tj.gif',
 	'feelsscam': 'http://i3.kym-cdn.com/photos/images/original/000/093/476/Mew_lick_avatar_by_MythicAzurel20110725-22047-2wuksy.gif',
+	'feelshayley': 'http://a.deviantart.net/avatars/c/h/chaoni.gif?1',
+	'feelseevee': 'http://a.deviantart.net/avatars/e/e/eeveelickplz.gif?1',
+	'feelsnatm': 'http://a.deviantart.net/avatars/n/e/neptune-ninja.gif?3',
+	'feelsotami': 'http://orig13.deviantart.net/2bc9/f/2013/119/a/3/spiky_eared_pichu_lick_icon_commission_by_poke_lover88-d63htrw.gif',
+	
+	
 	});
 }
 
