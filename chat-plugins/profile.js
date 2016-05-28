@@ -27,7 +27,7 @@ function Profile(isOnline, user, image) {
 	this.image = image;
 
 	this.username = Tools.escapeHTML(this.isOnline ? this.user.name : this.user);
-	this.url = 'https://aura-aakash12.c9users.io';
+	this.url = 'http://149.56.141.67';
 }
 
 /**
