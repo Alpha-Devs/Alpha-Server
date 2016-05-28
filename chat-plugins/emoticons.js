@@ -165,6 +165,11 @@ if (typeof demFeels.extendEmotes === 'function') {
 	'feelsmoa': 'http://i.imgur.com/943QIfz.jpg?1',
 	'feelsfox': 'http://orig10.deviantart.net/4383/f/2012/172/f/1/victini_lick_avatar_by_neogalactic54-d54daqi.gif',
 	'PJSalt': 'http://orig05.deviantart.net/99d1/f/2015/358/a/9/pjsalt_twitch_emote_by_xenoblast1-d9lc7ni.png',
+	'feelssylv': 'http://orig08.deviantart.net/5af0/f/2015/115/7/d/shiny_sylveon_lick_icon_by_zeaeevee-d8r173b.gif',
+	'feelsesp': 'http://a.deviantart.net/avatars/p/e/pearl-of-violette.gif?4',
+	'feelsfurry': 'http://media-cerulean.cursecdn.com/attachments/8/149/635261773285034557.gif',
+	'feelshop': 'http://fc05.deviantart.net/fs71/f/2012/299/3/b/lick_icon___hoppip_by_taricalmcacil-d5j1yhv.gif',
+	'feelsumb': 'http://orig11.deviantart.net/5e14/f/2011/178/4/0/umbreon_by_9000boy-d3k6h8p.gif',
 	});
 }
 
