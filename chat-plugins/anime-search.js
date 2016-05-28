@@ -78,8 +78,8 @@ exports.commands = {
 
 		searchAnime(target.trim()).then((anime) => {
 			let genres = anime.genres.map(genre => toId(genre.name));
-			if ((genres.indexOf('hentai')|| (genres.indexOf('ecchi')) > -1 || (genres.indexOf('yaoi') > -1 && anime.title.match(/pico/ig))) && this.broadcasting)
-				this.errorReply('Hentai or ecchi anime cannot be broadcasted.'); //explicitly detect boku no pico
+			if ((genres.indexOf('hentai') > -1 || (genres.indexOf('ecchi')) > -1 || (genres.indexOf('yaoi') > -1 && anime.title.match(/pico/ig))) && this.broadcasting)
+				this.errorReply('No. If you continue to try to broadcast this, you could be locked.); //explicitly detect boku no pico
 			else this.sendReplyBox(viewInfo(anime));
 			room.update();
 		}).catch((error) => {
