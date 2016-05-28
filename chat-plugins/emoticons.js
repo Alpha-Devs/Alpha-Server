@@ -105,7 +105,7 @@ if (typeof demFeels.extendEmotes === 'function') {
 	'feelssakis': 'http://i.imgur.com/yThm3fM.png?1',
 	'feelssammich': 'http://i.imgur.com/sVgkUF1.png?1',
 	'feelssc': 'http://i.imgur.com/cm6oTZ1.png',
-	'feelsserp': 'http://i.imgur.com/PtCTxmY.png',
+	'feelsSerp': 'http://i.imgur.com/PtCTxmY.png',
 	'feelsseis': 'http://i.imgur.com/gGGYxrE.png?1',
 	'feelsshi': 'http://i.imgur.com/VzlGZ1M.jpg',
 	'feelsshrk': 'http://i.imgur.com/amTG3jF.jpg',
@@ -183,6 +183,29 @@ if (typeof demFeels.extendEmotes === 'function') {
 	'feelsjay': 'http://i.imgur.com/RIOKSJ3.gif',
 	'feelsdragon': 'http://orig11.deviantart.net/62f3/f/2014/140/a/2/dragonite_lick_gif__d_by_timedragonpony-d7j1bq4.gif',
 	'feelspop': 'http://orig07.deviantart.net/940d/f/2016/142/a/d/popplio_sprite_animation_by_snivy101-da3d4lj.gif',
+	'feelsslime': 'http://orig11.deviantart.net/b2c5/f/2014/345/d/f/free_reuniclus_lick_icon_by_mewtres-d89hx52.gif',
+	'feelslugia': 'http://pa1.narvii.com/5859/02cfbad147c6cfa158abca48b595e57de08da3be_hq.gif',
+	'feelsnair': 'http://i76.photobucket.com/albums/j23/WWWpeoples/Lick%20Icons/ShinyDragonair.gif',
+	'feelstorpid': 'http://a.deviantart.net/avatars/z/a/zapdosrockz.gif?3',
+	'feelspsy': 'http://orig07.deviantart.net/1336/f/2012/056/1/c/kadabra_lick_icon_by_dudewheresmylion-d4qykar.gif',
+	'feelssui': 'http://l-userpic.livejournal.com/119169976/50630589',
+	'feelsresh': 'http://orig00.deviantart.net/7a17/f/2011/196/0/e/reshiramlickicon___request_by_zekrom622-d3suesi.gif',
+	'feelssnake': 'http://orig08.deviantart.net/9667/f/2010/099/7/f/arbok_lick_avi_by_zazuandhyenafan.gif',
+	'feelsserp': 'http://a.deviantart.net/avatars/x/x/xxxxusernamexxxx.gif?2',
+	'feelsglace': 'http://a.deviantart.net/avatars/s/k/skileet44.gif?3',
+	'feelssnor': 'http://orig04.deviantart.net/aa43/f/2011/162/3/2/snorlax_licky_by_lycramosa-d3ioajf.gif',
+	'feelsmeow': 'http://orig14.deviantart.net/2a17/f/2010/136/8/5/free_meowth_icon_by_mookameedy.gif',
+	'feelsdns': 'http://i.imgur.com/zsHvM4L.gif',
+	'feelswisp': 'http://orig13.deviantart.net/68b1/f/2010/268/8/5/arcanine_lick_icon__3_by_mushydog-d2zhkl4.gif',
+	'feelskip': 'http://victoryroad.net/images/smilies/Mudkip_avatar_by_Frikolin.gif',
+	'feelsrai': 'http://a.deviantart.net/avatars/r/a/raichuisawesome5.gif?1',
+	'feelslatias': 'http://i2.kym-cdn.com/photos/images/original/000/939/166/d49.gif',
+	'feelslatios': 'http://orig07.deviantart.net/746b/f/2011/195/f/b/free_latios_lick_icon_by_supersilverabsol-d3qhmws.gif',
+	'feelschik': 'http://orig10.deviantart.net/de15/f/2010/193/9/4/chikorita_free_lick_avatar_by_yakalentos.gif',
+	'(blueditto)': 'http://im.ezgif.com/tmp/ezgif-1776838979.gif',
+	'feelsgall': 'http://orig06.deviantart.net/c153/f/2011/220/0/b/galladelickicon___request_by_zekrom622-d45wcts.gif',
+	
+	
 	
 	
 	});
