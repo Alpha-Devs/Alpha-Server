@@ -1,42 +1,49 @@
-var fs = require('fs');
- 
-function loadDevs() {
-    try {
-        Users.devs = JSON.parse(fs.readFileSync('config/devs.json', 'utf8'));
-    } catch (e) {
-        Users.devs = {};
-    }
-}
-if (!Users.devs) loadDevs();
- 
-function saveDevs() {
-    fs.writeFileSync('config/devs.json', JSON.stringify(Users.devs));
-}
- 
+/**
+ *
+ * Vip.js Created and Modified by Richard
+ *
+ */
+
+'use strict';
+
+global.isDev = function (user) {
+	if (!user) return;
+	if (typeof user === 'Object') user = user.userid;
+	let dev = Db('devs').get(toId(user));
+	if (dev === 1) return true;
+	return false;
+};
+
 exports.commands = {
-    givedev: function (target, room, user) {
-        if(user.userid !== 'otami') return false;
-        if (!target) return this.sendReply("Usage: /givedev [user]");
-        if (Users.devs[toId(target)]) return this.sendReply(target + " already has the status.");
-        var targetUser = Users(target);
- 
-        if (!targetUser) return this.sendReply("User \"" + target + "\" not found.");
-        if (!targetUser.connected) return this.sendReply(targetUser.name + " is not online.");
-        if (!targetUser.registered) return this.sendReply(targetUser.name + " is not registered.");
- 
-        Users.devs[targetUser.userid] = 1;
-        targetUser.popup("You have received Developer status from " + user.name);
-        this.privateModCommand("(" + user.name + " has given Alpha Developer status to " + targetUser.name + ")");
-        saveDevs();
-    },
- 
-    removedev: function (target, room, user) {
-        if(user.userid !== 'otami') return false;
-        if (!target) return this.sendReply("Usage: /removedev [user]");
-        if (!Users.devs[toId(target)]) return this.sendReply("User \"" + target + "\" is not an Alpha Developer.");
- 
-        delete Users.devs[toId(target)];
-        saveDevs();
-        this.privateModCommand("(" + user.name + " has removed Alpha Developer status from " + target + ")");
-    },
+	dev: {
+		give: function (target, room, user) {
+			if (!this.can('declare')) return false;
+			let devUser = toId(target);
+		    if (!target || target.indexOf(',') < 0) ;
+            let parts = target.split(',');
+	     	let username = parts[0];
+		    if (!devUser) return this.parse('/help dev');
+			if (isDev(devUser)) return this.errorReply(devUser + ' is already a dev.');
+			Db('devs').set(devUser, 1);
+		if (Users.get(username)) Users(username).popup(user.name + " You have recieved DEV status from ~"+user.name );
+			this.sendReply(devUser + ' has been granted with dev status.');
+		},
+		take: function (target, room, user) {
+			if (!this.can('declare')) return false;
+			let devUser = toId(target);
+			if (!target || target.indexOf(',') < 0) ;
+            let parts = target.split(',');
+	     	let username = parts[0];
+			if (!devUser) return this.parse('/help dev');
+			if (!isDev(devUser)) return this.errorReply(devUser + ' is not a dev.');
+			Db('devs').delete(devUser);
+			if (Users.get(username)) Users(username).popup(user.name + " Your DEV status have been removed by ~ "+user.name );
+			this.sendReply(devUser + '\'s dev status has been taken.');
+		},
+		list: function (target, room, user) {
+			if (!this.can('declare')) return false;
+			if (!Object.keys(Db('devs').object()).length) return this.errorReply('There seems to be no user with dev status.');
+			this.sendReplyBox('<center><b><u>DEV Users</u></b></center>' + '<br /><br />' + Object.keys(Db('devs').object()).join('<br />'));
+		},
+	},
 };
