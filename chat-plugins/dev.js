@@ -26,17 +26,17 @@ exports.commands = {
  
         Users.devs[targetUser.userid] = 1;
         targetUser.popup("You have received Developer status from " + user.name);
-        this.privateModCommand("(" + user.name + " has given Wish Developer status to " + targetUser.name + ")");
+        this.privateModCommand("(" + user.name + " has given Alpha Developer status to " + targetUser.name + ")");
         saveDevs();
     },
  
     removedev: function (target, room, user) {
         if(user.userid !== 'otami') return false;
         if (!target) return this.sendReply("Usage: /removedev [user]");
-        if (!Users.devs[toId(target)]) return this.sendReply("User \"" + target + "\" is not a Wish Developer.");
+        if (!Users.devs[toId(target)]) return this.sendReply("User \"" + target + "\" is not an Alpha Developer.");
  
         delete Users.devs[toId(target)];
         saveDevs();
-        this.privateModCommand("(" + user.name + " has removed Wish Developer status from " + target + ")");
+        this.privateModCommand("(" + user.name + " has removed Alpha Developer status from " + target + ")");
     },
 };
