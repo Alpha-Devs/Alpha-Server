@@ -210,6 +210,7 @@ if (typeof demFeels.extendEmotes === 'function') {
 	'feelsray': 'http://orig03.deviantart.net/4cf3/f/2012/011/5/f/rayquaza_lick_icon___request_by_roro_victini-d4m0pda.gif',
 	'feelsskit': 'http://orig08.deviantart.net/2e75/f/2011/036/5/0/skitty_lickie_by_blankblankety-d38vhgh.gif',
 	'feelsalpha': 'http://a.deviantart.net/avatars/k/i/kimyri.gif?1',
+	'feelsemol': 'http://wiki.pokemonpl.net/images/b/b9/Przfffddjdjdjddjdjdjdjjdjdjdyk%C5%82ad.gif',
 	
 	
 	
