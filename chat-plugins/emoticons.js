@@ -179,6 +179,7 @@ if (typeof demFeels.extendEmotes === 'function') {
 	'feelsnatm': 'http://a.deviantart.net/avatars/n/e/neptune-ninja.gif?3',
 	'feelsotami': 'http://orig13.deviantart.net/2bc9/f/2013/119/a/3/spiky_eared_pichu_lick_icon_commission_by_poke_lover88-d63htrw.gif',
 	'feelsangel': 'http://cdn.imgs.tuts.dragoart.com/how-to-draw-kanade-angel-angel-beats_1_000000012513_7.png',
+	'hayleyandjake': 'http://sequence.com/wp-content/uploads/2013/10/chipotle_logo-e1387463876530.png',
 	
 	
 	});
