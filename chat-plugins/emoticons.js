@@ -202,7 +202,7 @@ if (typeof demFeels.extendEmotes === 'function') {
 	'feelslatias': 'http://i2.kym-cdn.com/photos/images/original/000/939/166/d49.gif',
 	'feelslatios': 'http://orig07.deviantart.net/746b/f/2011/195/f/b/free_latios_lick_icon_by_supersilverabsol-d3qhmws.gif',
 	'feelschik': 'http://orig10.deviantart.net/de15/f/2010/193/9/4/chikorita_free_lick_avatar_by_yakalentos.gif',
-	'(blueditto)': 'http://im.ezgif.com/tmp/ezgif-1776838979.gif',
+	'(blueditto)': 'http://a.deviantart.net/avatars/d/i/ditto9.gif?8',
 	'feelsgall': 'http://orig06.deviantart.net/c153/f/2011/220/0/b/galladelickicon___request_by_zekrom622-d45wcts.gif',
 	'feelsally': 'http://a.deviantart.net/avatars/m/i/miss-vulpix.gif?2',
 	'feelsarti': 'http://orig11.deviantart.net/253b/f/2011/255/a/1/articuno_for_stephany_chan___3_by_duhgetsu-d49oq2g.gif',
