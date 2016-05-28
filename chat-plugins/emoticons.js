@@ -182,6 +182,7 @@ if (typeof demFeels.extendEmotes === 'function') {
 	'hayleyandjake': 'http://sequence.com/wp-content/uploads/2013/10/chipotle_logo-e1387463876530.png',
 	'feelsjay': 'http://i.imgur.com/RIOKSJ3.gif',
 	'feelsdragon': 'http://orig11.deviantart.net/62f3/f/2014/140/a/2/dragonite_lick_gif__d_by_timedragonpony-d7j1bq4.gif',
+	'feelspop': 'http://orig07.deviantart.net/940d/f/2016/142/a/d/popplio_sprite_animation_by_snivy101-da3d4lj.gif',
 	
 	
 	});
