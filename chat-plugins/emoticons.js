@@ -170,6 +170,10 @@ if (typeof demFeels.extendEmotes === 'function') {
 	'feelsfurry': 'http://media-cerulean.cursecdn.com/attachments/8/149/635261773285034557.gif',
 	'feelshop': 'http://fc05.deviantart.net/fs71/f/2012/299/3/b/lick_icon___hoppip_by_taricalmcacil-d5j1yhv.gif',
 	'feelsumb': 'http://orig11.deviantart.net/5e14/f/2011/178/4/0/umbreon_by_9000boy-d3k6h8p.gif',
+	'feelsbui': 'http://a.deviantart.net/avatars/r/i/rijaya-vidra.gif?2',
+	'feelssky': 'http://static.planetminecraft.com/files/avatar/605325.gif',
+	'feelsleaf': 'http://orig08.deviantart.net/6218/f/2011/257/0/3/shiny_leafeon_lick_icon_by_supersilverabsol-d49t0tj.gif',
+	'feelsscam': 'http://i3.kym-cdn.com/photos/images/original/000/093/476/Mew_lick_avatar_by_MythicAzurel20110725-22047-2wuksy.gif',
 	});
 }
 
