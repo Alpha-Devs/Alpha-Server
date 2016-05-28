@@ -36,7 +36,7 @@ exports.commands = {
 
 		switch (parts[0]) {
 			case 'add':
-				if (!this.can('trainercard')) return false;
+				if (!this.can('ban')) return false;
 				if (!parts[2]) return this.sendReply("Usage: /trainercard add, [command name], [html]");
 				commandName = toId(parts[1]);
 				if (CommandParser.commands[commandName]) return this.sendReply("/trainercards - The command \"" + commandName + "\" already exists.");
