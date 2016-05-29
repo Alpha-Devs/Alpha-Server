@@ -143,8 +143,8 @@ Commands have access to the following functions:
 
 		if (!this.runBroadcast()) return false;
 
-`this.runBroadcast(suppressMessage)`
-*	Functionally the same as `this.runBroadcast()`. However, it will look as
+`this.canBroadcast(suppressMessage)`
+*	Functionally the same as `this.canBroadcast()`. However, it will look as
 	if the user had written the text `suppressMessage`.
 
 `this.canTalk()`
