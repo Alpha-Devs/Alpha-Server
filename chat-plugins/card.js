@@ -1,7 +1,6 @@
 'use strict';
 
 var cards = require('../card-data.js');
-let color = require('../config/color');
 
 var colors = {
 	Mythic: '#D82A2A',
@@ -252,7 +251,7 @@ exports.commands = {
 		const cards = Db('cards').get(userid, []);
 		const points = Db('points').get(userid, 0);
 
-		if (!cards.length) return this.sendReplyBox("<font color='" + color(userid) + "'>" + userid + "</font> has no cards.");
+		if (!cards.length) return this.sendReplyBox(userid + " has no cards.");
 
 		const cardsMapping = cards.map(function (card) {
 			return '<button name="send" value="/card ' + card.title + '" style="border-radius: 12px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset;" class="card-button"><img src="' + card.card + '" width="50" title="' + card.name + '"></button>';
