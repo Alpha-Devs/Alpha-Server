@@ -211,6 +211,8 @@ if (typeof demFeels.extendEmotes === 'function') {
 	'feelsskit': 'http://orig08.deviantart.net/2e75/f/2011/036/5/0/skitty_lickie_by_blankblankety-d38vhgh.gif',
 	'feelsalpha': 'http://a.deviantart.net/avatars/k/i/kimyri.gif?1',
 	'feelsemol': 'http://wiki.pokemonpl.net/images/b/b9/Przfffddjdjdjddjdjdjdjjdjdjdyk%C5%82ad.gif',
+	'feelsdoctor': 'http://data.whicdn.com/avatars/25857926/thumb.jpg?1409831930',
+	'feelsmeryl': 'http://i.imgur.com/MlTIDTh.jpg',
 	
 	
 	
