@@ -1,12 +1,6 @@
-/********************
-*  PSGO ~ Made by   *
-* Fender, Nineage   *
-*    and Naten      *
-********************/
 'use strict';
 
 var cards = require('../card-data.js');
-let color = require('../config/color');
 
 var colors = {
 	Mythic: '#D82A2A',
@@ -14,17 +8,17 @@ var colors = {
 	Epic: '#73DF14',
 	Rare: '#2DD1B6',
 	Uncommon: '#2D3ED1',
-	Common: '#282828',
+	Common: '#000',
 };
 
 var shop = [ //Actual shop display
-	['XY-Base', 'Get three cards from the first pack released in the Pokemon XY set.', 10],
-	['XY-Flashfire', 'Get three cards from the Flashfire pack released in the Pokemon XY set.', 10],
-	['XY-Furious Fists', 'Get three cards from the Furious Fists pack released in the Pokemon XY set.', 10],
-	['XY-Phantom Forces', 'Get three cards from the Phantom Forces pack released in the Pokemon XY set.', 10],
-	['XY-Primal Clash', 'Get three cards from the Primal Clash pack released in the Pokemon XY set.', 10],
-	['XY-Roaring Skies', 'Get three cards from the Roaring Skies pack released in the Pokemon XY set.', 10],
-//	['UU-Pack', 'Get three cards from the UU tier.', 10],
+	['XY-Base', 'Get three cards from the first pack released in the Pokemon XY set.', 7],
+	['XY-Flashfire', 'Get three cards from the Flashfire pack released in the Pokemon XY set.', 7],
+	['XY-Furious Fists', 'Get three cards from the Furious Fists pack released in the Pokemon XY set.', 7],
+	['XY-Phantom Forces', 'Get three cards from the Phantom Forces pack released in the Pokemon XY set.', 7],
+	['XY-Primal Clash', 'Get three cards from the Primal Clash pack released in the Pokemon XY set.', 7],
+	['XY-Roaring Skies', 'Get three cards from the Roaring Skies pack released in the Pokemon XY set.', 7],
+	//['UU-Pack', 'Get three cards from the UU tier.', 10]
 ];
 //Shop used in cardCache to reduce RAM usage of card caching
 var packShop = ['XY-Base', 'XY-Flashfire', 'XY-Furious Fists', 'XY-Phantom Forces', 'XY-Primal Clash', 'XY-Roaring Skies', 'Double Crisis', 'Water', 'Fire', 'Fighting', 'Fairy', 'Dragon', 'Colorless', 'Psychic', 'Lightning', 'Darkness', 'Grass', 'OU-Pack', 'UU-Pack', 'Uber-Pack', 'PU-Pack', 'NU-Pack', 'RU-Pack', 'LC-Pack', 'BL-Pack', 'BL2-Pack', 'BL3-Pack', 'Gen1', 'Gen2', 'Gen3', 'Gen4', 'Gen5', 'Gen6', 'Metal', 'Trainer', 'Supporter', 'Item', 'Stadium', 'EX-Pack', 'Legendary', 'Full', 'Event'];
@@ -135,7 +129,6 @@ cacheRarity();
 exports.commands = {
 	packs: 'pack',
 	pack: function (target, room, user) {
-		if (user.name !== 'lordhaji') return this.errorReply('not for you bad boy');
 		if (!this.canBroadcast()) return;
 		if (!target) target = user.name;
 		target = toId(target);
@@ -156,7 +149,7 @@ exports.commands = {
 		var amount = Db('money').get(user.userid, 0);
 		if (cleanShop.indexOf(packId) < 0) return self.sendReply('This is not a valid pack. Use /packshop to see all packs.');
 		var shopIndex = cleanShop.indexOf(toId(target));
-		if (packId !== 'xybase' && packId !== 'xyfuriousfists' && packId !== 'xyflashfire' && packId !== 'xyphantomforces' && packId !== 'xyroaringskies' && packId !== 'xyprimalclash') return self.errorReply('This pack is not currently in circulation.  Please use /packshop to see the current packs.');
+		if (packId !== 'xybase' && packId !== 'xyfuriousfists' && packId !== 'xyflashfire' && packId !== 'xyphantomforces' && packId !== 'xyroaringskies' && packId !== 'xyprimalclash') return self.sendReply('This pack is not currently in circulation.  Please use /packshop to see the current packs.');
 		var cost = shop[shopIndex][2];
 		if (cost > amount) return self.sendReply('You need ' + (cost - amount) + ' more bucks to buy this card.');
 		var total = Db('money').set(user.userid, amount - cost).get(user.userid);
@@ -220,10 +213,9 @@ exports.commands = {
 			'|raw|' + user.name + ' has given you ' + pack + ' pack. You have until the server restarts to open your pack. \
 			Use <button name="send" value="/openpack ' + pack + '"><b>/openpack ' + pack + '</b></button> to open your pack.');
 	},
-
+/*
 	takepacks: 'takepack',
 	takepack: function (target, room, user) {
-		if (user.name !== 'lordhaji') return this.errorReply('not for you bad boy')
 		if (!user.can('takepack')) return this.errorReply('/takepack - Access denied.');
 		if (!target) return this.sendReply('/takepack [user], [pack] - Take a pack from a user. Alias: /takepacks');
 		var parts = target.split(',');
@@ -240,28 +232,44 @@ exports.commands = {
 		this.sendReply(this.targetUsername + ' lost ' + pack + ' pack. This user now has ' + users[userid].length + ' pack(s).');
 		Users.get(this.targetUsername).send('|raw|' + user.name + ' has taken ' + pack + ' pack from you. You now have ' +  users[userid].length + ' pack(s).');
 	},
-
+*/
 	showcards: 'showcase',
 	showcard: 'showcase',
-	showcase: function (target, room, userid) {
-		if (!this.canBroadcast()) return;
+	showcase: function (target, room, user) {
+		if (!this.runBroadcast()) return;
+
+		let page = 1;
+		let userid = user.userid;
+		const parts = target.split(',');
+		if (parts.length === 2) {
+			userid = toId(parts[0]);
+			page = isNaN(parts[1]) ? 1 : Number(parts[1]);
+		} else if (parts.length === 1 && toId(parts[0])) {
+			userid = toId(parts[0]);
+		}
 
 		const cards = Db('cards').get(userid, []);
 		const points = Db('points').get(userid, 0);
 
-		if (!cards.length) return this.sendReplyBox("<font color='" + color(userid) + "'>" + userid + "</font> has no cards.");
+		if (!cards.length) return this.sendReplyBox(userid + " has no cards.");
 
 		const cardsMapping = cards.map(function (card) {
-			return '<button name="send" value="/card ' + card.title + '" style="border-radius: 12px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset; width:100; height:100"><img src="' + card.card + '" width="50" title="' + card.name + '"></button>';
+			return '<button name="send" value="/card ' + card.title + '" style="border-radius: 12px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset;" class="card-button"><img src="' + card.card + '" width="50" title="' + card.name + '"></button>';
 		});
-		const bottom = '<br><center><b><font color="' + color(userid) + '">' + userid + '</font> has ' + cards.length + ' cards and ' + points + ' points.</b><center>';
 
-		room.addRaw("<div class='infobox'><div class='infobox-limited'>" + cardsMapping + bottom + "</div></div>");
+		const start = (page - 1) * 10;
+		const end = page * 10;
+		const bottom = '<br><br>' + userid + ' has ' + points + ' points.<br><br><b>Showing cards: ' + start + ' through ' + end + ' of ' + cards.length + '</b>';
+		const display = cardsMapping.slice(start, end);
+
+		if (!display.length) return this.sendReplyBox("Too many pages.");
+
+		this.sendReplyBox(display.join('') + bottom);
 	},
 
 	card: function (target, room, user) {
 		if (!target) return this.sendReply('/card [name] - Shows information about a card.');
-		if (!this.canBroadcast()) return;
+		if (!this.runBroadcast()) return;
 		var cardName = toId(target);
 		if (!cards.hasOwnProperty(cardName)) return this.sendReply(target + ': card not found.');
 		var card = cards[cardName];
@@ -275,7 +283,7 @@ exports.commands = {
 	},
 
 	cardladder: function (target, room, user) {
-		if (!this.canBroadcast()) return;
+		if (!this.runBroadcast()) return;
 		var display = '<center><u><b>Card Ladder</b></u></center><br><table border="1" cellspacing="0" cellpadding="5" width="100%"><tbody><tr><th>Rank</th><th>Username</th><th>Points</th></tr>';
 		var keys = Object.keys(Db('points').object()).map(function (name) {
 			return {name: name, points: Db('points').get(name)};
@@ -300,23 +308,24 @@ exports.commands = {
 	},
 
 	psgo: 'cardshelp',
-	pscg: 'cardshelp',
+	origincg: 'cardshelp',
 	cardshelp: function (target, room, user) {
 		if (!this.canBroadcast()) return;
 		return this.sendReplyBox('\
-			<center><b><u>Haji\'s Pokemon Trading Card Game (for PS system):</u></b></center><br>\
+			<center><b><u>Alpha Trading Card Game: by Richard</u></b></center><br>\
 			<b>/buypack</b> - Buys a pack from the pack shop.<br>\
 			<b>/packshop</b> - Shows the shop for buying packs.<br>\
 			<b>/openpack</b> - Opens a pack that has been purchased from the shop.<br>\
 			<b>/showcase</b> - Shows a display of all cards that you have. Specify a page number to see more cards.<br>\
 			<b>/card</b> - Shows data and information on any specifc card.<br>\
 			<b>/cardladder</b> - Shows the leaderboard of the users with the most card points.<br>\
+			<center><b>Special Thanks To Fender, Naten, and Nineage for creating such a wonderful feature and allowing us to use it! n_n</b></center>\
 		');
 	},
 	searchcards: function (target, room, user) {
-		if (!this.canBroadcast()) return;
+		if (!this.runBroadcast()) return;
 		if (!target) return this.errorReply('you need a search term');
-		if (target === "ALL" && user.name === 'lordhaji') {
+		if (target === "ALL" && user.name === 'AuraStormLucario') {
 			for (var x = 0; x < 888; x++) {
 				this.parse('/card ' + allCards[x]);
 			}
