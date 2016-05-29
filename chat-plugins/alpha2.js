@@ -7,8 +7,41 @@
 
 let moment = require('moment');
 let request = require('request');
+const color = require('../config/color');
+let fs = require('fs');
+
 
 let messages = [
+	"ventured into Shrek's Swamp.",
+	"disrespected the OgreLord!",
+	"used Explosion!",
+	"was swallowed up by the Earth!",
+	"was eaten by Lex!", 
+	"was sucker punched by Absol!",
+	"has left the building.",
+	"got lost in the woods!",
+	"left for their lover!",
+	"couldn't handle the coldness of Frost!",
+	"was hit by Magikarp's Revenge!",
+	"was sucked into a whirlpool!",
+	"got scared and left the server!",
+	"went into a cave without a repel!",
+	"got eaten by a bunch of piranhas!",
+	"ventured too deep into the forest without an escape rope",
+	"got shrekt",
+	"woke up an angry Snorlax!",
+	"was forced to give jd an oil massage!",
+	"was used as shark bait!",
+	"peered through the hole on Shedinja's back",
+	"received judgment from the almighty Arceus!",
+	"used Final Gambit and missed!",
+	"went into grass without any Pokemon!",
+	"made a Slowbro angry!",
+	"took a focus punch from Breloom!",
+	"got lost in the illusion of reality.",
+	"ate a bomb!",
+	"left for a timeout!",
+	"fell into a snake pit!",
 	"has vanished into nothingness!",
 	"used Explosion!",
 	"fell into the void.",
@@ -42,34 +75,84 @@ function clearRoom(room) {
 }
 
 exports.commands = {
-	stafflist: 'authority',
-	auth: 'authority',
-	authlist: 'authority',
-	authority: function (target, room, user, connection) {
-		let rankLists = {};
-		let ranks = Object.keys(Config.groups);
-		for (let u in Users.usergroups) {
-			let rank = Users.usergroups[u].charAt(0);
-			// In case the usergroups.csv file is not proper, we check for the server ranks.
-			if (ranks.indexOf(rank) > -1) {
-				let name = Users.usergroups[u].substr(1);
-				if (!rankLists[rank]) rankLists[rank] = [];
-				if (name) rankLists[rank].push(((Users.getExact(name) && Users.getExact(name).connected) ? '**' + name + '**' : name));
+	 shoppm: function (target, room, user) {
+        if (!user.canShopPM) return this.sendReply('You need to buy this item from the shop to use.');
+        if (!target) return this.sendReply('/shoppm [message] - PM all users in the server.');
+        if (target.indexOf('/html') >= 0) return this.sendReply('Cannot contain /html.');
+
+        let pmName = '~Global PM from ' + user.name +' [Do not reply]';
+
+        Users.users.forEach(function (user) {
+            let message = '|pm|' + pmName + '|' + user.getIdentity() + '|' + target;
+            user.send(message);
+        });
+        user.canShopPM = false;
+    },
+	
+	
+	stafflist: 'al',
+	authlist: 'al',
+	auth: 'al',
+	authlist: 'al',
+	al: function(target, room, user, connection) {
+		fs.readFile('config/usergroups.csv', 'utf8', function(err, data) {
+			var staff = {
+				"admins": [],
+				"leaders": [],
+				"mods": [],
+				"drivers": [],
+				"operators": [],
+				"voices": []
+			};
+			var row = ('' + data).split('\n');
+			for (var i = row.length; i > -1; i--) {
+				if (!row[i]) continue;
+				var rank = row[i].split(',')[1].replace("\r", '');
+				var person = row[i].split(',')[0];
+				function nameColor (name) {
+					if (Users.getExact(name) && Users(name).connected) {
+						return '<b><i><font color="' + color(name) + '">' + Tools.escapeHTML(Users.getExact(name).name) + '</font></i></b>';
+					} else {
+						return '<font color="' + color(name) + '">' + Tools.escapeHTML(name) + '</font>';
+					}
+				}
+				switch (rank) {
+					case '~':
+						staff['admins'].push(nameColor(person));
+						break;
+					case '&':
+						if (toId(person) === 'tintins') break;
+						staff['leaders'].push(nameColor(person));
+						break;
+					case '@':
+						staff['mods'].push(nameColor(person));
+						break;
+					case '%':
+						staff['drivers'].push(nameColor(person));
+						break;
+					case '$':
+						staff['operators'].push(nameColor(person));
+						break;
+					case '+':
+						staff['voices'].push(nameColor(person));
+						break;
+					default:
+						continue;
+				}
 			}
-		}
-
-		let buffer = [];
-		Object.keys(rankLists).sort(function (a, b) {
-			return (Config.groups[b] || {rank: 0}).rank - (Config.groups[a] || {rank: 0}).rank;
-		}).forEach(function (r) {
-			buffer.push((Config.groups[r] ? r + Config.groups[r].name + "s (" + rankLists[r].length + ")" : r) + ":\n" + rankLists[r].sort().join(", "));
+			connection.popup('|html|' +
+				'<h3>Server Authority List</h3>' +
+				'<b><u>~Administrators (' + staff['admins'].length + ')</u></b>:<br />' + staff['admins'].join(', ') +
+				'<br /><b><u>&Leaders (' + staff['leaders'].length + ')</u></b>:<br />' + staff['leaders'].join(', ') +
+				'<br /><b><u>@Moderators (' + staff['mods'].length + ')</u></b>:<br />' + staff['mods'].join(', ') +
+				'<br /><b><u>%Drivers (' + staff['drivers'].length + ')</u></b>:<br />' + staff['drivers'].join(', ') +
+				'<br /><b><u>$Operators (' + staff['operators'].length + ')</u></b>:<br />' + staff['operators'].join(', ') +
+				'<br /><b><u>+Voices (' + staff['voices'].length + ')</u></b>:<br />' + staff['voices'].join(', ') +
+				'<br /><hr><blink>(<b>Bold</b> / <i>italic</i> = currently online)</blink>'
+			);
 		});
-
-		if (!buffer.length) {
-			return connection.popup("This server has no auth.");
-		}
-		connection.popup(buffer.join("\n\n"));
 	},
+
 
 	clearall: function (target, room, user) {
 		if (!this.can('declare')) return false;
@@ -194,15 +277,16 @@ exports.commands = {
 			}
 			let regdate = body.split('<small>')[1].split('</small>')[0].replace(/(<em>|<\/em>)/g, '');
 			if (regdate === '(Unregistered)') {
-				this.sendReplyBox(Tools.escapeHTML(target) + " is not registered.");
+				this.sendReplyBox("<font color='" + color(target) + '"' + Tools.escapeHTML(target) + "</font><font colot='red'> is <b>not registered.</b></font>");
 			} else if (regdate === '(Account disabled)') {
-				this.sendReplyBox(Tools.escapeHTML(target) + "'s account is disabled.");
+				this.sendReplyBox("<font color='" + color(target) + "'" + Tools.escapeHTML(target) + "</font>'s account is disabled.");
 			} else {
-				this.sendReplyBox(Tools.escapeHTML(target) + " was registered on " + regdate.slice(7) + ".");
+				this.sendReplyBox("<font color='" + color(target) + "'>" + Tools.escapeHTML(target) + "</font> was registered on " + regdate.slice(7) + ".");
 			}
 			room.update();
 		}.bind(this));
 	},
+
 	regdatehelp: ["/regdate - Please specify a valid username."],
 
 	show: function (target, room, user) {
@@ -218,19 +302,21 @@ exports.commands = {
 		this.sendReply("|raw|This server uses <a href='https://github.com/CreaturePhil/Showdown-Boilerplate'>Showdown-Boilerplate</a>.");
 	},
 	showdownboilerplatehelp: ["/showdownboilerplate - Links to the Showdown-Boilerplate repository on Github."],
-
-	seen: function (target, room, user) {
+     lastseen: 'seen',
+    seen: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		if (!target) return this.parse('/help seen');
 		let targetUser = Users.get(target);
-		if (targetUser && targetUser.connected) return this.sendReplyBox(targetUser.name + " is <b>currently online</b>.");
+		if (targetUser && targetUser.connected) return this.sendReplyBox("<b><font color='" + color(targetUser.name) + "'>" + targetUser.name + "</font></b> is <b><font color='limegreen'>Currently Online</font></b>.");
 		target = Tools.escapeHTML(target);
 		let seen = Db('seen').get(toId(target));
-		if (!seen) return this.sendReplyBox(target + " has never been online on this server.");
-		this.sendReplyBox(target + " was last seen <b>" + moment(seen).fromNow() + "</b>.");
+		if (!seen) return this.sendReplyBox("<font color= '" + color(target) + "'>" + target + "has<font color='red'><b> never</font></b> been online on this server.");
+		this.sendReplyBox("<b><font color='" +  color(target) + "'>" + target + "</font></b> was last seen <b>" + moment(seen).fromNow() + "</b>.");
 	},
 	seenhelp: ["/seen - Shows when the user last connected on the server."],
-
+    hc: function(target, room, user) {
+    return this.parse('/hotpatch chat')
+  },
 	tell: function (target, room, user, connection) {
 		if (!target) return this.parse('/help tell');
 		target = this.splitTarget(target);
