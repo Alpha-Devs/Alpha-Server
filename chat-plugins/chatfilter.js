@@ -23,3 +23,4 @@ Config.chatfilter = function (message, user, room, connection) {
 			return false;
 		}
 	}
+};
