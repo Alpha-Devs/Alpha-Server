@@ -18,7 +18,7 @@ Config.chatfilter = function (message, user, room, connection) {
 			' was automatically locked for trying to say "' + message + '"').update();
 			fs.appendFile('logs/modlog/modlog_staff.txt', '[' + (new Date().toJSON()) + '] (staff) ' + user.name + ' was locked from talking by the Server (' +
 			bannedMessages[x] + ') (' + connection.ip + ')\n');
-			staffPM(user.name + ' has been automatically locked for sending a message containing a banned word' +
+			Misc.staffPM(user.name + ' has been automatically locked for sending a message containing a banned word' +
 			(room ? ". **Room:**" + room.id : " in a private message.") + ' **Message:** ' + message, '~Server');
 			return false;
 		}
@@ -36,11 +36,11 @@ Config.chatfilter = function (message, user, room, connection) {
 				' was locked from talking by the Server. (Advertising) (' + connection.ip + ')\n');
 			connection.sendTo(room, '|raw|<strong class="message-throttle-notice">You have been locked for attempting to advertise.</strong>');
 			let alertMessage =
-			staffpm(user.name + " has been locked for attempting to advertise" + (room ? ". **Room:**" + room.id : " in a private message.") + " **Message:** " + message, "~Server");
+			Misc.staffpm(user.name + " has been locked for attempting to advertise" + (room ? ". **Room:**" + room.id : " in a private message.") + " **Message:** " + message, "~Server");
 			Rooms('staff').add('|raw|' + Gold.nameColor(user.name, false) + " has been locked for attempting to advertise" + (room ? ". <b>Room:</b> " + room.id : " in a private message.") + " <b>Message:</b> " + message).update();
 			return false;
 		}
-		staffpm(user.name + " has attempted to advertise" + (room ? ". **Room:** " + room.id : " in a private message.") + " **Message:** " + message, "~Server");
+		Misc.staffpm(user.name + " has attempted to advertise" + (room ? ". **Room:** " + room.id : " in a private message.") + " **Message:** " + message, "~Server");
 		Rooms('staff').add('|raw|' + Gold.nameColor(user.name, false) + " has attempted to advertise" + (room ? ". <b>Room:</b> " + room.id : " in a private message.") + " <b>Message:</b> " + message).update();
 		connection.sendTo(room, '|raw|<strong class="message-throttle-notice">Advertising detected, your message has not been sent and upper staff has been notified.' +
 			'<br />Further attempts to advertise will result in being locked</strong>');
