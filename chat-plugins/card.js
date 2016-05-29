@@ -213,7 +213,7 @@ exports.commands = {
 			'|raw|' + user.name + ' has given you ' + pack + ' pack. You have until the server restarts to open your pack. \
 			Use <button name="send" value="/openpack ' + pack + '"><b>/openpack ' + pack + '</b></button> to open your pack.');
 	},
-/*
+
 	takepacks: 'takepack',
 	takepack: function (target, room, user) {
 		if (!user.can('takepack')) return this.errorReply('/takepack - Access denied.');
@@ -232,7 +232,7 @@ exports.commands = {
 		this.sendReply(this.targetUsername + ' lost ' + pack + ' pack. This user now has ' + users[userid].length + ' pack(s).');
 		Users.get(this.targetUsername).send('|raw|' + user.name + ' has taken ' + pack + ' pack from you. You now have ' +  users[userid].length + ' pack(s).');
 	},
-*/
+
 	showcards: 'showcase',
 	showcard: 'showcase',
 	showcase: function (target, room, user) {
@@ -251,7 +251,7 @@ exports.commands = {
 		const cards = Db('cards').get(userid, []);
 		const points = Db('points').get(userid, 0);
 
-		if (!cards.length) return this.sendReplyBox(userid + " has no cards.");
+		if (!cards.length) return this.sendReplyBox(user.name + " has no cards.");
 
 		const cardsMapping = cards.map(function (card) {
 			return '<button name="send" value="/card ' + card.title + '" style="border-radius: 12px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset;" class="card-button"><img src="' + card.card + '" width="50" title="' + card.name + '"></button>';
@@ -259,7 +259,7 @@ exports.commands = {
 
 		const start = (page - 1) * 10;
 		const end = page * 10;
-		const bottom = '<br><br>' + userid + ' has ' + points + ' points.<br><br><b>Showing cards: ' + start + ' through ' + end + ' of ' + cards.length + '</b>';
+		const bottom = '<br><br>' + user.name + ' has ' + points + ' points.<br><br><b>Showing cards: ' + start + ' through ' + end + ' of ' + cards.length + '</b>';
 		const display = cardsMapping.slice(start, end);
 
 		if (!display.length) return this.sendReplyBox("Too many pages.");
