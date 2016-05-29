@@ -49,7 +49,7 @@ exports.commands = {
 	},
 
 	reports: function (target, room, user, connection, cmd) {
-		if (!user.can('pban')) return this.errorReply('/reports - Access denied.');
+		if (!user.can('declare')) return this.errorReply('/reports - Access denied.');
 		if (!target) var target = '';
 		target = target.trim();
 
