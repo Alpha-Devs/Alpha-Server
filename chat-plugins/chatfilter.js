@@ -22,4 +22,5 @@ Config.chatfilter = function (message, user, room, connection) {
 			(room ? ". **Room:**" + room.id : " in a private message.") + ' **Message:** ' + message, '~Server');
 			return false;
 		}
+	}
 };
