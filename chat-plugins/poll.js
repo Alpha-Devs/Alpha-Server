@@ -172,7 +172,7 @@ exports.commands = {
 	votehelp: ["/vote [option] - Vote for an option in the poll."],
 
 	votes: function (target, room, user) {
-		if (!this.canBroadcast()) return;
+		if (!this.runBroadcast()) return;
 		if (!Poll[room.id]) Poll.reset(room.id);
 		if (!Poll[room.id].question) return this.sendReply("There is no poll currently going on in this room.");
 		this.sendReply("NUMBER OF VOTES: " + Object.keys(Poll[room.id].options).length);
