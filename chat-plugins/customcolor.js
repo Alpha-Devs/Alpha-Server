@@ -103,7 +103,7 @@ exports.commands = {
         symbolcolorhelp: ["/symbolcolor [user], [room 1], [room 2], etc. - Sets an symbol color to a user in chosen rooms."],
 
     colorpreview: function (target, room, user) {
-        if (!this.canBroadcast()) return;
+        if (!this.runBroadcast()) return;
         target = target.split(',');
         for (var u in target) target[u] = target[u].trim();
         if (!target[1]) return this.parse('/help colorpreview');

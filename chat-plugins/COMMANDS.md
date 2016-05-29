@@ -141,10 +141,10 @@ Commands have access to the following functions:
 
 	Should usually be near the top of the command, like:
 
-		if (!this.canBroadcast()) return false;
+		if (!this.runBroadcast()) return false;
 
 `this.runBroadcast(suppressMessage)`
-*	Functionally the same as `this.canBroadcast()`. However, it will look as
+*	Functionally the same as `this.runBroadcast()`. However, it will look as
 	if the user had written the text `suppressMessage`.
 
 `this.canTalk()`

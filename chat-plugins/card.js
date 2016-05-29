@@ -129,7 +129,7 @@ cacheRarity();
 exports.commands = {
 	packs: 'pack',
 	pack: function (target, room, user) {
-		if (!this.canBroadcast()) return;
+		if (!this.runBroadcast()) return;
 		if (!target) target = user.name;
 		target = toId(target);
 		if (!userPacks[target] || userPacks[target].length === 0) {
@@ -165,14 +165,14 @@ exports.commands = {
 	},
 
 	packshop: function (target, room, user) {
-		if (!this.canBroadcast()) return;
+		if (!this.runBroadcast()) return;
 		return this.sendReply('|raw|' + getShopDisplay(shop));
 	},
 
 	open: 'openpack',
 	openpacks: 'openpack',
 	openpack: function (target, room, user) {
-		if (!this.canBroadcast()) return;
+		if (!this.runBroadcast()) return;
 		if (!target) {
 			this.sendReply('/openpack [pack] - Open a Pokemon Card Pack. Alias: /open, /openpacks');
 			return this.parse('/packs');
@@ -310,7 +310,7 @@ exports.commands = {
 	psgo: 'cardshelp',
 	origincg: 'cardshelp',
 	cardshelp: function (target, room, user) {
-		if (!this.canBroadcast()) return;
+		if (!this.runBroadcast()) return;
 		return this.sendReplyBox('\
 			<center><b><u>Alpha Trading Card Game: by Richard</u></b></center><br>\
 			<b>/buypack</b> - Buys a pack from the pack shop.<br>\

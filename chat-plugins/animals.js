@@ -35,7 +35,7 @@ exports.commands = {
                 try {
                     let data = JSON.parse(chunk);
                     let output = '<center><img src="' + data.data["image_url"] + '" width="400"></center>';
-                    if (!self.canBroadcast()) return;
+                    if (!self.runBroadcast()) return;
                     if (data.data["image_url"] === undefined) {
                         self.errorReply("404 Error: No Images found!");
                         return room.update();
