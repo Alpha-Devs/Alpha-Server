@@ -1,8 +1,3 @@
-/**
- *
- * Vip.js Created and Modified by Richard
- *
- */
 
 'use strict';
 
