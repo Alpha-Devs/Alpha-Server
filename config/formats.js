@@ -2631,7 +2631,7 @@ exports.Formats = [
 		name: "[Gen 4] Randbats",
 		team: 'random',
 		
-		section: "Alpha Previous Gens,
+		section: "Alpha Previous Gens",
 		ruleset: ['Pokemon', 'Standard', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 
 		mod: 'gen4',
