@@ -3,7 +3,7 @@
 const fs = require('fs');
 
 let adWhitelist = (Config.adWhitelist ? Config.adWhitelist : ['smogon.psim.us', 'smogtours.psim.us', 'alpha.psim.us']);
-let bannedMessages = (Config.bannedMessages ? Config.bannedMessages : ['pornhub', 'xvideos', 'xxnx' 'youporn', 'redtube', 'paysite', 'abbywinters', 'baitbus', 'brazzers', 'chaturbate', 'kink.com', 'justusboys', 'sssh.com', 'sex141', 'thesword.com', 'youporn', 'xtube', 'porn2.0', 'myex.com', 'myfeecams', 'livejasmin', 'erotica', 'hentai', 'rule34.paheal.net', 'danbooru', 'gelbooru', 'rule34.xxx', 'e621.net']);
+let bannedMessages = (Config.bannedMessages ? Config.bannedMessages : ['pornhub', 'xvideos', 'xxnx', 'youporn', 'redtube', 'paysite', 'abbywinters', 'baitbus', 'brazzers', 'chaturbate', 'kink.com', 'justusboys', 'sssh.com', 'sex141', 'thesword.com', 'youporn', 'xtube', 'porn2.0', 'myex.com', 'myfeecams', 'livejasmin', 'erotica', 'hentai', 'rule34.paheal.net', 'danbooru', 'gelbooru', 'rule34.xxx', 'e621.net']);
 let adRegex = new RegExp("(play.pokemonshowdown.com\\/~~)(?!(" + adWhitelist.join('|') + "))", "g");
 
 Config.chatfilter = function (message, user, room, connection) {
