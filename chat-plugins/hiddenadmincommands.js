@@ -26,23 +26,24 @@
     },
     sudohelp: ["/sudo [user], [command] - Allows you to make the user to a certain command. (Not mod commands or /nick) Requires: ~ or SysOp."],
 
-  greendeclare: function (target, room, user) {
-		if (!target) return this.parse('/help bdeclare');
-		if (!this.can('declare', null, room)) return false;
-		if (!this.canTalk()) return;
+    greendeclare: function (target, room, user) {
+	if (!target) return this.parse('/help bdeclare');
+	if (!this.can('declare', null, room)) return false;
+	if (!this.canTalk()) return;
 
-		this.add('|raw|<div class="broadcast-green">' + target + '</div>');
-		this.logModCommand(user.name + " declared " + target);
-	},
-	declarehelp: ["/declare [message] - Anonymously announces a message. Requires: # & ~"],
-		reddeclare: function (target, room, user) {
-		if (!target) return this.parse('/help pdeclare');
-		if (!this.can('declare', null, room)) return false;
-		if (!this.canTalk()) return;
+	this.add('|raw|<div class="broadcast-green">' + target + '</div>');
+	this.logModCommand(user.name + " declared " + target);
+    },
+    declarehelp: ["/declare [message] - Anonymously announces a message. Requires: # & ~"],
+    
+    reddeclare: function (target, room, user) {
+	if (!target) return this.parse('/help pdeclare');
+	if (!this.can('declare', null, room)) return false;
+	if (!this.canTalk()) return;
 
-		this.add('|raw|<div class="broadcast-red">' + target + '</div>');
-		this.logModCommand(user.name + " declared " + target);
-	},
-	declarehelp: ["/declare [message] - Anonymously announces a message. Requires: # & ~"],
+	this.add('|raw|<div class="broadcast-red">' + target + '</div>');
+	this.logModCommand(user.name + " declared " + target);
+    },
+    reddeclarehelp: ["/declare [message] - Anonymously announces a message. Requires: # & ~"],
 
 };
