@@ -2486,4 +2486,154 @@ exports.Formats = [
 		debug: true,
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],
 	},
+	
+	/////////////////////////Ironic Inverse //////////////////////////////////////////
+	{
+		name: "Monotype Random [Inverse]",
+		column: 2,
+		section: "Alpha Inverse Tiers",
+		
+			team: 'randomMonotype',
+		searchShow: true,
+		ruleset: ['Pokemon', 'Same Type Clause', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
+				onNegateImmunity: false,
+		onEffectiveness: function (typeMod, target, type, move) {
+			// The effectiveness of Freeze Dry on Water isn't reverted
+			if (move && move.id === 'freezedry' && type === 'Water') return;
+			if (move && !this.getImmunity(move, type)) return 1;
+			return -typeMod;
+		},
+	},
+			{
+		name: "Monotype [Inverse]",
+		section: "Alpha Inverse Tiers",
+
+		
+		ruleset: ['Pokemon', 'Standard', 'Baton Pass Clause', 'Swagger Clause', 'Same Type Clause', 'Team Preview'],
+		banlist: ['Aegislash', 'Arceus', 'Blaziken', 'Darkrai', 'Deoxys', 'Deoxys-Attack', 'Dialga', 'Genesect', 'Giratina', 'Giratina-Origin', 'Greninja', 'Groudon',
+			'Ho-Oh', 'Kyogre', 'Kyurem-White', 'Lugia', 'Mewtwo', 'Palkia', 'Rayquaza', 'Reshiram', 'Shaymin-Sky', 'Talonflame', 'Xerneas', 'Yveltal', 'Zekrom',
+			'Altarianite', 'Charizardite X', 'Damp Rock', 'Gengarite', 'Kangaskhanite', 'Lucarionite', 'Mawilite', 'Metagrossite', 'Salamencite', 'Slowbronite', 'Smooth Rock', 'Soul Dew',
+		],
+		searchShow: true,
+			onNegateImmunity: false,
+		onEffectiveness: function (typeMod, target, type, move) {
+			// The effectiveness of Freeze Dry on Water isn't reverted
+			if (move && move.id === 'freezedry' && type === 'Water') return;
+			if (move && !this.getImmunity(move, type)) return 1;
+			return -typeMod;
+		},
+	},
+	{
+	
+			name: "Randbats [Inverse]",
+			
+		team: 'random',
+		
+		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
+				searchShow: true,
+			onNegateImmunity: false,
+		onEffectiveness: function (typeMod, target, type, move) {
+			// The effectiveness of Freeze Dry on Water isn't reverted
+			if (move && move.id === 'freezedry' && type === 'Water') return;
+			if (move && !this.getImmunity(move, type)) return 1;
+			return -typeMod;
+		},
+		section: "Alpha Inverse Tiers",
+	},
+		{
+	
+		name: "[Gen 1] Randbats [Inverse]",
+			
+		team: 'random',
+		
+		ruleset: ['Pokemon', 'Standard', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
+				searchShow: true,
+			onNegateImmunity: false,
+		onEffectiveness: function (typeMod, target, type, move) {
+			// The effectiveness of Freeze Dry on Water isn't reverted
+			if (move && move.id === 'freezedry' && type === 'Water') return;
+			if (move && !this.getImmunity(move, type)) return 1;
+			return -typeMod;
+		},
+		mod: 'gen1',
+		
+		section: "Alpha Inverse Tiers",
+	},
+	
+		{
+	
+		name: "[Gen 2] Randbats [Inverse]",
+			
+		team: 'random',
+		
+		ruleset: ['Pokemon', 'Standard', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
+				searchShow: true,
+			onNegateImmunity: false,
+		onEffectiveness: function (typeMod, target, type, move) {
+			// The effectiveness of Freeze Dry on Water isn't reverted
+			if (move && move.id === 'freezedry' && type === 'Water') return;
+			if (move && !this.getImmunity(move, type)) return 1;
+			return -typeMod;
+		},
+		mod: 'gen2',
+		
+		section: "Alpha Inverse Tiers",
+	},
+	
+	
+	
+	{
+		name: "Challenge Cup 1v1  [Inverse]",
+		section: "Alpha Inverse Tiers",
+
+		team: 'randomCC',
+		teamLength: {
+			battle: 1,
+		},
+		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
+						onNegateImmunity: false,
+		onEffectiveness: function (typeMod, target, type, move) {
+			// The effectiveness of Freeze Dry on Water isn't reverted
+			if (move && move.id === 'freezedry' && type === 'Water') return;
+			if (move && !this.getImmunity(move, type)) return 1;
+			return -typeMod;
+		},
+	},
+	{
+		name: "Hackmons Cup [Inverse]",
+		section: "Alpha Inverse Tiers",
+		
+		team: 'randomHC',
+		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],
+						onNegateImmunity: false,
+		onEffectiveness: function (typeMod, target, type, move) {
+			// The effectiveness of Freeze Dry on Water isn't reverted
+			if (move && move.id === 'freezedry' && type === 'Water') return;
+			if (move && !this.getImmunity(move, type)) return 1;
+			return -typeMod;
+		},
+	},
+	
+	//Alpha Previous Gens
+	//////////////////////////////////////////////////////////////////
+	{
+		name: "[Gen 3] Randbats",
+		team: 'random',
+		ruleset: ['Pokemon', 'Standard', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
+		col: 1,
+		section: "Alpha Previous Gens",
+		
+
+		mod: 'gen3',
+	},
+	
+			{
+		name: "[Gen 4] Randbats",
+		team: 'random',
+		
+		section: "Alpha Previous Gens,
+		ruleset: ['Pokemon', 'Standard', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
+
+		mod: 'gen4',
+	},
 ];
