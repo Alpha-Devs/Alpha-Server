@@ -21,6 +21,7 @@ Config.chatfilter = function (message, user, room, connection) {
 			Gold.pmUpperStaff(user.name + ' has been automatically locked for sending a message containing a banned word' +
 			(room ? ". **Room:**" + room.id : " in a private message.") + ' **Message:** ' + message, '~Server');
 			return false;
-	  }
-	return message;
+	  	}
+		return message;
+	}
 };
