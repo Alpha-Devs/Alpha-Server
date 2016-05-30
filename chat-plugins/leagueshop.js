@@ -1,6 +1,6 @@
 /**
  *
- * Roomshop.js Made By Richard adams.
+ * Roomshop.js Made Naten.
  * Pokemon Showdown plugin to create a shop for a room.
  *
  */
