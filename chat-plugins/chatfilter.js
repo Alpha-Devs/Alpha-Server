@@ -18,7 +18,7 @@ Config.chatfilter = function (message, user, room, connection) {
 			' was automatically locked for trying to say "' + message + '"').update();
 			fs.appendFile('logs/modlog/modlog_staff.txt', '[' + (new Date().toJSON()) + '] (staff) ' + user.name + ' was locked from talking by the Server (' +
 			bannedMessages[x] + ') (' + connection.ip + ')\n');
-			Misc.pmAllStaff(user.name + ' has been automatically locked for sending a message containing a banned word' +
+			misc.pmAllStaff(user.name + ' has been automatically locked for sending a message containing a banned word' +
 			(room ? ". **Room:**" + room.id : " in a private message.") + ' **Message:** ' + message, '~Server');
 			return false;
 	  	}
