@@ -152,14 +152,14 @@ body {
 
 .userbar button.icon {
   border: 1px solid #0099e6;
-  background: rgba(0, 153, 230, 0.5);
+  background: rgba(230, 247, 255, 0.8);
   color: #0099e6;
   text-shadow: 0px 0px 2px #00111a;
 }
 
 .dark .userbar button.icon {
     border: 1px solid #222;
-    background: rgb(0, 34, 51);
+    background: rgba(230, 247, 255, 0.8);
     color: #0099e6;
     text-shadow: 0px 0px 2px #00091a;
 }
