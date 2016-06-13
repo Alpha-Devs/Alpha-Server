@@ -38,23 +38,26 @@ const path = require('path');
 const parseEmoticons = require('./chat-plugins/emoticons').parseEmoticons;
 
 function getServersAds (text) {
-        var aux = text.toLowerCase();
-        var serversAds = [];
-        var spamindex;
-        var actualAd = '';
-        while (aux.indexOf(".psim.us") > -1) {
-                spamindex = aux.indexOf(".psim.us");
-                actualAd = '';
-                for (var i = spamindex - 1; i >= 0; i--) {
-                        if (aux.charAt(i).replace(/[^a-z0-9]/g, '') === '') break;
-                        actualAd = aux.charAt(i) + actualAd;
-                }
-                if (actualAd.length) serversAds.push(toId(actualAd));
-                aux = aux.substr(spamindex + ".psim.us".length);
-        }
-        return serversAds;
+	var aux = text.toLowerCase();
+	var serversAds = [];
+	var spamindex;
+	var actualAd = '';
+	while (aux.indexOf(".psim.us") > -1) {
+		spamindex = aux.indexOf(".psim.us");
+		actualAd = '';
+		for (var i = spamindex - 1; i >= 0; i--) {
+			if (aux.charAt(i).replace(/[^a-z0-9]/g, '') === '') break;
+			actualAd = aux.charAt(i) + actualAd;
+			
+		}
+		if (actualAd.length) serversAds.push(toId(actualAd));
+		aux = aux.substr(spamindex + ".psim.us".length);
+		
+	}
+	return serversAds;
+	
 }
-
+ 
 /*********************************************************
  * Load command files
  *********************************************************/
