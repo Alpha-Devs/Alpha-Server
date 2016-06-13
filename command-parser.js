@@ -42,9 +42,9 @@ function getServersAds (text) {
         var serversAds = ['porn'];
         var spamindex;
         var actualAd = '';
-        while (aux.indexOf(".psim.us", "pornhub", "xnxx", "youporn", "redtube", "pronhub", "4chan.com", "paysite", "abbywinters", "baitbus", "brazzers", "chaturbate", "kink.com", "justusboys", "sssh.com", "sex141", "thesword.com", "xhamster", "youporn", "xtube", "porn2.0", "myex.com", "myfreecams", "erotica", "hentai", "rule34") > -1) {
+        while (aux.indexOf(".psim.us", "pornhub", ) > -1) {
                 spamindex = aux.indexOf(".psim.us", "pornhub", "xnxx", "youporn", "redtube", "pronhub", "4chan.com", "paysite", "abbywinters", "baitbus", "brazzers", "chaturbate", "kink.com", "justusboys", "sssh.com", "sex141", "thesword.com", "xhamster", "youporn", "xtube", "porn2.0", "myex.com", "myfreecams", "erotica", "hentai", "rule34");
-                actualAd = '';
+                actualAd = 'xnxx', 'youporn', 'redtube', 'pronhub', '4chan.com', 'paysite', 'abbywinters', 'baitbus', 'brazzers', 'chaturbate', 'kink.com', 'justusboys", "sssh.com", "sex141", "thesword.com", "xhamster", youporn', 'xtube', 'porn2.0', 'myex.com', 'myfreecams', 'erotica', 'hentai', 'rule34';
                 for (var i = spamindex - 1; i >= 0; i--) {
                         if (aux.charAt(i).replace(/[^a-z0-9]/g, '') === '') break;
                         actualAd = aux.charAt(i) + actualAd;
