@@ -122,7 +122,7 @@ Profile.prototype.group = function () {
 			return label('Group') + Config.groups[Users.usergroups[name].charAt(0)].name;
 		}
 	}
-	return label('Group') + 'Omega Ruby User';
+	return label('Group') + 'Regular User';
 };
 
 Profile.prototype.money = function (amount) {
