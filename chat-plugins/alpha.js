@@ -310,7 +310,7 @@ exports.commands = {
 		if (targetUser && targetUser.connected) return this.sendReplyBox("<b><font color='" + color(targetUser.name) + "'>" + targetUser.name + "</font></b> is <b><font color='limegreen'>Currently Online</font></b>.");
 		target = Tools.escapeHTML(target);
 		let seen = Db('seen').get(toId(target));
-		if (!seen) return this.sendReplyBox("<font color= '" + color(target) + "'>" + target + "has<font color='red'><b> never</font></b> been online on this server.");
+		if (!seen) return this.sendReplyBox("<font color= '" + color(target) + "'>" + target + " has<font color='red'><b> never</font></b> been online on this server.");
 		this.sendReplyBox("<b><font color='" +  color(target) + "'>" + target + "</font></b> was last seen <b>" + moment(seen).fromNow() + "</b>.");
 	},
 	seenhelp: ["/seen - Shows when the user last connected on the server."],
