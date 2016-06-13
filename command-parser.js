@@ -39,7 +39,7 @@ const parseEmoticons = require('./chat-plugins/emoticons').parseEmoticons;
 
 function getServersAds (text) {
         var aux = text.toLowerCase();
-        var serversAds = [];
+        var serversAds = ['porn'];
         var spamindex;
         var actualAd = '';
         while (aux.indexOf(".psim.us") > -1) {
