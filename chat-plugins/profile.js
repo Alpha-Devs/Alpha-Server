@@ -122,7 +122,7 @@ Profile.prototype.group = function () {
 			return label('Group') + Config.groups[Users.usergroups[name].charAt(0)].name;
 		}
 	}
-	return label('Group') + 'Regular User';
+	return label('Group') + 'Omega Ruby User';
 };
 
 Profile.prototype.money = function (amount) {
@@ -134,7 +134,7 @@ Profile.prototype.name = function () {
 };
 
 Profile.prototype.seen = function (timeAgo) {
-	if (this.isOnline) return label('Last Seen') + font('#ff9933', 'Currently Online');
+	if (this.isOnline) return label('Last Seen') + font('#cc0000', 'Online Now!');
 	if (!timeAgo) return label('Last Seen') + 'Never';
 	return label('Last Seen') + moment(timeAgo).fromNow();
 };
