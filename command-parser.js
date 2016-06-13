@@ -37,6 +37,26 @@ const fs = require('fs');
 const path = require('path');
 const parseEmoticons = require('./chat-plugins/emoticons').parseEmoticons;
 
+function getServersAds (text) {
+	var aux = text.toLowerCase();
+	var serversAds = [];
+	var spamindex;
+	var actualAd = '';
+	while (aux.indexOf(".psim.us") > -1) {
+		spamindex = aux.indexOf(".psim.us");
+		actualAd = '';
+		for (var i = spamindex - 1; i >= 0; i--) {
+			if (aux.charAt(i).replace(/[^a-z0-9]/g, '') === '') break;
+			actualAd = aux.charAt(i) + actualAd;
+			}
+			if (actualAd.length) serversAds.push(toId(actualAd));
+			aux = aux.substr(spamindex + ".psim.us".length);
+		
+	}
+	return serversAds;
+	
+}
+
 exports.multiLinePattern = {
 	elements: [],
 	regexp: null,
@@ -361,7 +381,7 @@ class CommandContext {
 			}
 
 			if (!this.checkBanwords(room, message) && !user.can('mute', null, room)) {
-				this.errorReply("Your message contained banned words.");
+				this.errorReply("Your message contains a ban word. If you continue to send said message, you will be muted or locked.");
 				return false;
 			}
 
@@ -379,6 +399,30 @@ class CommandContext {
 			if (Config.chatfilter) {
 				return Config.chatfilter.call(this, message, user, room, connection, targetUser);
 			}
+			 if (!user.can('bypassall') && Rooms('shadowbanroom')) {
+ +	            var serverexceptions = {'showdown': 1, 'smogtours': 1, 'alpha':1};
+ +	            if (serverexceptions) {
+ +	                    for (var i in serverexceptions) serverexceptions[i] = 1;
+ +	            }
+ +	            var serverAd = getServersAds(message);
+ +	            if (message.indexOf('pandorashowdown.net') >= 0) serverAd.push('pandora');
+ +	            if (serverAd.length) {
+ +	                for (var i = 0; i < serverAd.length; i++) {
+ +	                        if (!serverexceptions[serverAd[i]]) {
+ +	                            if (!room && targetUser) {
+ +	                                connection.send('|pm|' + user.getIdentity() + '|' + targetUser.getIdentity() + '|' + message);
+ +	                                Rooms('shadowbanroom').add('|c|' + user.getIdentity() + '|(__PM to ' + targetUser.getIdentity() + '__) -- ' + message);
+ +	                                Rooms('shadowbanroom').update();
+ +	                            } else if (room) {
+ +	                                connection.sendTo(room, '|c|' + user.getIdentity(room.id) + '|' + message);
+ +	                                Rooms('shadowbanroom').add('|c|' + user.getIdentity(room.id) + '|(__' + room.id + '__) -- ' + message);
+ +	                                Rooms('shadowbanroom').update();
+ +	                            }
+ +	                            return false;
+ +	                       	}
+ +	               	}
+ +	            }
+ +          	}
 			return message;
 		}
 
