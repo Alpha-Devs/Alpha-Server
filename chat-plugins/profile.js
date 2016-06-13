@@ -134,19 +134,19 @@ Profile.prototype.name = function () {
 };
 
 Profile.prototype.seen = function (timeAgo) {
-	if (this.isOnline) return label('Last Seen') + font('#2ECC40', 'Currently Online');
+	if (this.isOnline) return label('Last Seen') + font('#ff9933', 'Currently Online');
 	if (!timeAgo) return label('Last Seen') + 'Never';
 	return label('Last Seen') + moment(timeAgo).fromNow();
 };
 
 Profile.prototype.vip = function (user) {
-	if (isVip(user)) return font('#6390F0', '(<b>VIP User</b>)');
+	if (isVip(user)) return font('#0066ff', '(<b>Contributor</b>)');
 	return '';
 	
 };
 
 Profile.prototype.dev = function (user) {
-	if (isDev(user)) return font('#009320', '(<b>Dev</b>)');
+	if (isDev(user)) return font('#33cc33', '(<b>Server Developer</b>)');
 	return '';
 	
 };
