@@ -1,4 +1,4 @@
-p/**
+/**
  * Command parser
  * Pokemon Showdown - http://pokemonshowdown.com/
  *
