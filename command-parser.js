@@ -42,7 +42,7 @@ function getServersAds (text) {
         var serversAds = ['porn'];
         var spamindex;
         var actualAd = '';
-        while (aux.indexOf(".psim.us") > -1) {
+        while (aux.indexOf(".psim.us", "porn") > -1) {
                 spamindex = aux.indexOf(".psim.us");
                 actualAd = '';
                 for (var i = spamindex - 1; i >= 0; i--) {
