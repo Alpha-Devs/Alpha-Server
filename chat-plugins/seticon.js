@@ -23,7 +23,7 @@ function logMoney(message) {
 
 exports.commands = {
 	seticon: function (target, room, user) {
-		if (!this.can('eval')) return this.errorReply("Access denied.");
+		if (!this.can('ban')) return this.errorReply("Access denied.");
 
 		let args = target.split(',');
 		if (args.length < 3) return this.parse('/help seticon');
