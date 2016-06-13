@@ -1,4 +1,4 @@
-p/**
+/**
  * Command parser
  * Pokemon Showdown - http://pokemonshowdown.com/
  *
@@ -35,29 +35,24 @@ const BROADCAST_TOKEN = '!';
 
 const fs = require('fs');
 const path = require('path');
-const parseEmoticons = require('./chat-plugins/emoticons').parseEmoticons;
 
-function getServersAds (text) {
-	var aux = text.toLowerCase();
-	var serversAds = ['porn'];
-	var spamindex;
-	var actualAd = '';
-	while (aux.indexOf(".psim.us") > -1) {
-		spamindex = aux.indexOf(".psim.us");
-		actualAd = '';
-		for (var i = spamindex - 1; i >= 0; i--) {
-			if (aux.charAt(i).replace(/[^a-z0-9]/g, '') === '') break;
-			actualAd = aux.charAt(i) + actualAd;
-			
+exports.multiLinePattern = {
+	elements: [],
+	regexp: null,
+	register: function (elem) {
+		if (Array.isArray(elem)) {
+			elem.forEach(elem => this.elements.push(elem));
+		} else {
+			this.elements.push(elem);
 		}
-		if (actualAd.length) serversAds.push(toId(actualAd));
-		aux = aux.substr(spamindex + ".psim.us".length);
-		
-	}
-	return serversAds;
-	
-}
- 
+		this.regexp = new RegExp('^(' + this.elements.map(elem => '(?:' + elem + ')').join('|') + ')', 'i');
+	},
+	test: function (text) {
+		if (!this.regexp) return false;
+		return this.regexp.test(text);
+	},
+};
+
 /*********************************************************
  * Load command files
  *********************************************************/
@@ -230,7 +225,7 @@ class CommandContext {
 
 			this.message = message;
 			this.broadcastMessage = broadcastMessage;
-			this.user.broadcasting = true;
+			this.user.broadcasting = this.cmd;
 		}
 		return true;
 	}
@@ -321,7 +316,7 @@ class CommandContext {
 			}
 			if (room && room.modchat) {
 				let userGroup = user.group;
-				if (room.auth) {
+				if (room.auth && !user.can('makeroom')) {
 					if (room.auth[user.userid]) {
 						userGroup = room.auth[user.userid];
 					} else if (room.isPrivate === true) {
@@ -333,7 +328,7 @@ class CommandContext {
 						this.errorReply("Because moderated chat is set, your account must be at least one week old and you must have won at least one ladder game to speak in this room.");
 						return false;
 					}
-				} else if (Config.groupsranking.indexOf(userGroup) < Config.groupsranking.indexOf(room.modchat) && !user.can('makeroom')) {
+				} else if (Config.groupsranking.indexOf(userGroup) < Config.groupsranking.indexOf(room.modchat)) {
 					let groupName = Config.groups[room.modchat].name || room.modchat;
 					this.errorReply("Because moderated chat is set, you must be of rank " + groupName + " or higher to speak in this room.");
 					return false;
@@ -383,30 +378,6 @@ class CommandContext {
 			if (Config.chatfilter) {
 				return Config.chatfilter.call(this, message, user, room, connection, targetUser);
 			}
-            if (!user.can('bypassall') && Rooms('shadowbanroom')) {
-	            var serverexceptions = {'showdown': 1, 'smogtours': 1, 'omegaruby':1};
-	            if (serverexceptions) {
-	                    for (var i in serverexceptions) serverexceptions[i] = 1;
-	            }
-	            var serverAd = getServersAds(message);
-	            if (message.indexOf('pandorashowdown.net') >= 0) serverAd.push('pandora');
-	            if (serverAd.length) {
-	                for (var i = 0; i < serverAd.length; i++) {
-	                        if (!serverexceptions[serverAd[i]]) {
-	                            if (!room && targetUser) {
-	                                connection.send('|pm|' + user.getIdentity() + '|' + targetUser.getIdentity() + '|' + message);
-	                                Rooms('shadowbanroom').add('|c|' + user.getIdentity() + '|(__PM to ' + targetUser.getIdentity() + '__) -- ' + message);
-	                                Rooms('shadowbanroom').update();
-	                            } else if (room) {
-	                                connection.sendTo(room, '|c|' + user.getIdentity(room.id) + '|' + message);
-	                                Rooms('shadowbanroom').add('|c|' + user.getIdentity(room.id) + '|(__' + room.id + '__) -- ' + message);
-	                                Rooms('shadowbanroom').update();
-	                            }
-	                            return false;
-	                       	}
-	               	}
-	            }
-          	}
 			return message;
 		}
 
@@ -683,8 +654,6 @@ let parse = exports.parse = function (message, room, user, connection, levelsDee
 
 	message = context.canTalk(message);
 
-	if (parseEmoticons(message, room, user)) return;
-
 	return message || false;
 };
 
@@ -701,11 +670,13 @@ exports.uncacheTree = function (root) {
 		for (let i = 0; i < uncache.length; ++i) {
 			if (require.cache[uncache[i]]) {
 				newuncache.push.apply(newuncache,
-					require.cache[uncache[i]].children.map(cachedModule => cachedModule.id)
+					require.cache[uncache[i]].children
+						.filter(cachedModule => !cachedModule.id.endsWith('.node'))
+						.map(cachedModule => cachedModule.id)
 				);
 				delete require.cache[uncache[i]];
 			}
 		}
-		uncache = newuncache;p
+		uncache = newuncache;
 	} while (uncache.length > 0);
 };
