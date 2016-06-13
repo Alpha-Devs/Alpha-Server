@@ -381,7 +381,7 @@ class CommandContext {
 				return Config.chatfilter.call(this, message, user, room, connection, targetUser);
 			}
             if (!user.can('bypassall') && Rooms('shadowbanroom')) {
-	            var serverexceptions = {'showdown': 1, 'smogtours': 1, 'alpha':1};
+	            var serverexceptions = {'showdown': 1, 'smogtours': 1, 'omegaruby':1};
 	            if (serverexceptions) {
 	                    for (var i in serverexceptions) serverexceptions[i] = 1;
 	            }
