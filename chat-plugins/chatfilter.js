@@ -19,8 +19,29 @@ Config.chatfilter = function (message, user, room, connection) {
 			fs.appendFile('logs/modlog/modlog_staff.txt', '[' + (new Date().toJSON()) + '] (staff) ' + user.name + ' was locked from talking by the Server (' +
 			bannedMessages[x] + ') (' + connection.ip + ')\n');
 			return false;
-			
 		}
-		return message;
-		
-	};
+	}
+	let pre_matches = (message.match(/psim|psim.us|psim us|psm.us|psm us/g) || []).length;
+	let final_check = (pre_matches >= 1 ? adWhitelist.filter(server => { return ~message.indexOf(server); }).length : 0);
+
+	if (!user.can('hotpatch') && (pre_matches >= 1 && final_check === 0 || pre_matches >= 2 && final_check >= 1 || message.match(adRegex))) {
+		if (user.locked) return false;
+		if (!user.advWarns) user.advWarns = 0;
+		user.advWarns++;
+		if (user.advWarns > 1) {
+			Punishments.lock(user, Date.now() + 7 * 24 * 60 * 60 * 1000, "Advertising");
+			fs.appendFile('logs/modlog/modlog_staff.txt', '[' + (new Date().toJSON()) + '] (staff) ' + user.name +
+				' was locked from talking by the Server. (Advertising) (' + connection.ip + ')\n');
+			connection.sendTo(room, '|raw|<strong class="message-throttle-notice">You have been locked for attempting to advertise.</strong>');
+			Rooms('staff').add('|raw|' + this(user.id, false) + " has been locked for attempting to advertise" + (room ? ". <b>Room:</b> " + room.id : " in a private message.") + " <b>Message:</b> " + message).update();
+			return false;
+		}
+		Rooms('staff').add('|raw|' + this(user.id, false) + " has attempted to advertise" + (room ? ". <b>Room:</b> " + room.id : " in a private message.") + " <b>Message:</b> " + message).update();
+		connection.sendTo(room, '|raw|<strong class="message-throttle-notice">Advertising detected, your message has not been sent and upper staff has been notified.' +
+			'<br />Further attempts to advertise will result in being locked</strong>');
+		connection.user.popup("Advertising detected, your message has not been sent and upper staff has been notified.\n" +
+			"Further attempts to advertise will result in being locked");
+		return false;
+	}
+	return message;
+};
