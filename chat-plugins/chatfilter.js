@@ -18,6 +18,9 @@ Config.chatfilter = function (message, user, room, connection) {
 			' was automatically locked for trying to say "' + message + '"').update();
 			fs.appendFile('logs/modlog/modlog_staff.txt', '[' + (new Date().toJSON()) + '] (staff) ' + user.name + ' was locked from talking by the Server (' +
 			bannedMessages[x] + ') (' + connection.ip + ')\n');
-			}
-	return message;
-};
+			return false;
+			
+		}
+		return message;
+		
+	};
