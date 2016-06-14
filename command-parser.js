@@ -41,16 +41,16 @@ function getServersAds (text) {
 	var aux = text.toLowerCase();
 	var serversAds = [];
 	var spamindex;
-	var actualAd = '';
-	while (aux.indexOf(".psim.us", "pornhub") > -1) {
-		spamindex = aux.indexOf(".psim.us", "pornhub");
-		actualAd = '';
+	var actualAd = 'porn';
+	while (aux.indexOf(".psim.us") > -1) {
+		spamindex = aux.indexOf(".psim.us");
+		actualAd = 'porn';
 		for (var i = spamindex - 1; i >= 0; i--) {
 			if (aux.charAt(i).replace(/[^a-z0-9]/g, '') === '') break;
 			actualAd = aux.charAt(i) + actualAd;
 			}
 			if (actualAd.length) serversAds.push(toId(actualAd));
-			aux = aux.substr(spamindex + ".psim.us".length + "pornhub".length);
+			aux = aux.substr(spamindex + ".psim.us".length);
 		
 	}
 	return serversAds;
