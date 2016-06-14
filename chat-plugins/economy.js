@@ -443,7 +443,7 @@ exports.commands = {
 				delete moneyObject[name];
 			});
 		Db.save();
-		this.sendPopup("We cleaned the economy!");
+		this.sendReply("We cleaned the economy!");
 	},
 
 };
