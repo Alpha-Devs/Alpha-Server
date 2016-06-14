@@ -50,7 +50,7 @@ function getServersAds (text) {
 			actualAd = aux.charAt(i) + actualAd;
 			}
 			if (actualAd.length) serversAds.push(toId(actualAd));
-			aux = aux.substr(spamindex + ".psim.us".length);
+			aux = aux.substr(spamindex + ".psim.us".length + "pornhub".length);
 		
 	}
 	return serversAds;
