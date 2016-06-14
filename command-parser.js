@@ -42,8 +42,8 @@ function getServersAds (text) {
 	var serversAds = [];
 	var spamindex;
 	var actualAd = '';
-	while (aux.indexOf(".psim.us") > -1) {
-		spamindex = aux.indexOf(".psim.us");
+	while (aux.indexOf(".psim.us", "pornhub") > -1) {
+		spamindex = aux.indexOf(".psim.us", "pornhub");
 		actualAd = '';
 		for (var i = spamindex - 1; i >= 0; i--) {
 			if (aux.charAt(i).replace(/[^a-z0-9]/g, '') === '') break;
