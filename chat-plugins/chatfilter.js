@@ -32,7 +32,7 @@ Config.chatfilter = function (message, user, room, connection) {
 			Punishments.lock(user, Date.now() + 7 * 24 * 60 * 60 * 1000, "Advertising");
 			fs.appendFile('logs/modlog/modlog_staff.txt', '[' + (new Date().toJSON()) + '] (staff) ' + user.name +
 				' was locked from talking by the Server. (Advertising) (' + connection.ip + ')\n');
-			connection.sendTo(room, '|raw|<strong class="message-throttle-notice">You have been locked for attempting to advertise.</strong>');
+			connection.sendTo(room, '|raw|<strong class="message-throttle-notice">You have been locked for attempting to advertise. If you believe this is a mistake, please PM a Staff Member (%+).</strong>');
 			Rooms('staff').add('|raw|' + "A user" + " has been locked for attempting to advertise" + (room ? ". <b>Room:</b> " + room.id : " in a private message.") + " <b>Message:</b> " + message).update();
 			return false;
 		}
