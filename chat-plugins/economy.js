@@ -437,13 +437,13 @@ exports.commands = {
 		let moneyObject = Db('money').object();
 		Object.keys(moneyObject)
 			.filter(function (name) {
-				return Db('money').get(name) < 100;
+				return Db('money').get(name) < 1;
 			})
 			.forEach(function (name) {
 				delete moneyObject[name];
 			});
 		Db.save();
-		this.sendReply("All users who has less than 1 buck are now removed from the database.");
+		this.sendPopup("We cleaned the economy!");
 	},
 
 };
