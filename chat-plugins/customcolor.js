@@ -31,7 +31,7 @@ function updateColor() {
     var file = fs.readFileSync('config/custom.css', 'utf8').split('\n');
     if (~file.indexOf('/* COLORS START */')) file.splice(file.indexOf('/* COLORS START */'), (file.indexOf('/* COLORS END */') - file.indexOf('/* COLORS START */')) + 1);
     fs.writeFileSync('config/custom.css', file.join('\n') + newCss);
-    request('http://play.pokemonshowdown.com/customcss.php?server=ironic&invalidate', function callback(error, res, body) {
+    request('http://play.pokemonshowdown.com/customcss.php?server=omegaruby&invalidate', function callback(error, res, body) {
         if (error) return console.log('updateColor error: ' + error);
     });
 }
