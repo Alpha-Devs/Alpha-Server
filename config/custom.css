@@ -97,11 +97,11 @@ body {
 /* Header */
 
 .header {
-    background: rgba(0, 153, 230, 0.4);
+    background: rgba(0, 153, 230, 0.4) url(http://i.imgur.com/w782spV.png) no-repeat;
 }
 
 .dark .header {
-    background: rgba(0, 34, 51, 0.8);
+    background: rgba(0, 34, 51, 0.8) url(http://i.imgur.com/w782spV.png) no-repeat;
 }
 .maintabbarbottom {
     background: #0099e6;
