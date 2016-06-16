@@ -12,41 +12,48 @@ body {
     background-position: bottom left;
     background-repeat: no-repeat;
 }
+
 .dark body {
     background-image: url(http://img05.deviantart.net/09e0/i/2014/130/3/7/omega_ruby___groudon_by_rakkushi-d7hrrw8.png);
     background-color: #990000;
     background-size: cover;
     background-repeat: no-repeat;
 }
+
 .ps-room.ps-room-light {
     background: rgba(255, 255, 255, 0.7);
     border-color: #B20000;
 }
+
 .ps-room.ps-room-light.scrollable {
     background: rgba(251, 51, 51, 0.4);
 }
-.dark .ps-room.ps-room-light.scrollable {
-    background: rgba(251, 51, 51, 0.4);
-}
+
 .rooms-officialchatrooms,
 .rooms-chatrooms {
     color: #000;
 }
+
 .dark .rooms-officialchatrooms,
 .dark .rooms-chatrooms {
     color: #000;
 }
+
 .ps-room.ps-room-light.scrollable p {
     color: #000;
 }
+
 .dark .ps-room.ps-room-light.scrollable p {
     color: #000;
 }
+
 .ps-room.ps-room-light.scrollable .button {
     background: rgba(102, 0, 0, 0.2);
     border: 1px solid;
     border-color: #000;
+    color: rgba(0, 0, 0, 0.2)
 }
+
 .ps-room.ps-room-light.scrollable .button:hover {
     background: rgba(102, 0, 0, 0.1);
     border-color: #000;
@@ -55,247 +62,222 @@ body {
 .dark .chat.mine {
     background: rgba(0, 0, 0, 0.0);
 }
+
 .broadcast-red {
-    background: #204060;
+    background: #b30000;
     border: 1px solid;
-    border-color: #002133;
+    border-color: #000;
     text-align: center;
     padding: 8px;
     margin: 5px;
 }
-.broadcast-blue button {
-    background: #006bb3;
+
+.broadcast-red button {
+    background: #cc0000;
     border: 1px solid;
-    color: #e6f2ff;
+    color: #ff3333;
     padding: 2px 8px;
 }
-.broadcast-blue a {
-    background: #2d5986;
+
+.broadcast-red a {
+    background: #cc0000;
 }
-.broadcast-blue button:hover {
-    background: #0059b3;
+
+.broadcast-red button:hover {
+    background: #b30000;
 }
+
 .ps-overlay {
     background: rgba(0, 0, 0, 0.35)
 }
-.dark .ps-overlay {
-    background: rgba(0, 0, 0, 0.5);
-}
+
 /* Header */
  
 .header {
     background: rgba(153, 0, 0, 0.4) url(http://i.imgur.com/w782spV.png) no-repeat;
 }
-.logo {
+
+.header .logo {
     opacity: 0;
 }
+
 .dark .header {
     background: rgba(0, 34, 51, 0.8) url(http://i.imgur.com/w782spV.png) no-repeat;
 }
+
 .maintabbarbottom {
     background: #cc0000;
     opacity: 0.4;
 }
-.dark .maintabbarbottom {
-    background: #002233;
-    opacity: 0.7;
-}
+
 .tabbar a.button {
     border-color: #cc0000;
     background: rgba(204, 0, 0, 0.4);
-    color: rgba(0, 153, 230, 0.5);
 }
-.dark .tabbar a.button {
-    background: rgba(0, 34, 51, 0.7);
-    color: #BBB;
-    border-color: #222222;
-    text-shadow: 0px 0px 2px #00091a;
-}
+
 .tabbar a.button:hover {
-    background: rgba(0, 153, 230, 0.9);
+    background: rgba(204, 0, 0, 0.2);
 }
-.dark .tabbar a.button:hover {
-    background: #005580;
-}
+
 .tabbar a.button.notifying {
     background: #FFE0A7;
     border-color: rgba(0, 153, 230, 0.5);
     color: rgba(0, 153, 230, 0.5);
 }
+
 .tabbar a.button.notifying:hover {
     background: #F9D990;
     border-color: rgba(255, 255, 128, 0.5);
     color: rgba(255, 255, 128, 0.5);
 }
+
 .tabbar a.button.subtle-notifying,
 .tabbar a.button.subtle-notifying:hover {
     color: rgba(255, 255, 128, 0.5);
 }
+
 .userbar button.icon {
     border: 1px solid #cc0000;
     background: rgba(230, 247, 255, 0.8);
     color: #cc0000;
     text-shadow: 0px 0px 2px #00111a;
 }
-.dark .userbar button.icon {
-    border: 1px solid #222;
-    background: rgba(230, 247, 255, 0.8);
-    color: #cc0000;
-    text-shadow: 0px 0px 2px #00091a;
-}
+
 /* Room List */
  
 .roomlist a.ilink {
     color: #000;
 }
- 
+
 .roomlist a.ilink:hover {
     background: url(http://cdn.bulbagarden.net/upload/b/bc/383MS.png) no-repeat right;
     background-position: 350px
 }
- 
+
 .roomcounters .picon {
     background: transparent url(http://cdn.bulbagarden.net/upload/b/bc/383MS.png) no-repeat bottom !important;
 }
+
 /* Default Pm window */
  
 .pm-window h3 {
-    border-color: #006699;
-    background: rgba(0, 85, 128, 0.6) url(http://cdn.bulbagarden.net/upload/b/bc/383MS.png) right no-repeat;
+    border-color: #cc0000;
+    background: rgba(153, 0, 0, 0.4) url(http://cdn.bulbagarden.net/upload/b/bc/383MS.png) right no-repeat;
     background-position: 215px;
-    color: rgba(159, 191, 223, 0.7);
+    color: #FFF;
 }
-.dark .pm-window h3 {
-    border-color: #002133;
-    background: rgba(0, 34, 51, 0.8) url(http://cdn.bulbagarden.net/upload/b/bc/383MS.png) right no-repeat;
-    background-position: 215px;
-    color: #0086b3;
-}
+
 .pm-window h3:hover {
-    background: rgba(0, 85, 128, 0.6) url(http://cdn.bulbagarden.net/upload/b/bc/383MS.png) right no-repeat;
+    background: rgba(153, 0, 0, 0.2) url(http://cdn.bulbagarden.net/upload/b/bc/383MS.png) right no-repeat;
     background-position: 215px;
-    color: #0086b3;
+    color: #FFF;
 }
-.dark .pm-window h3:hover {
-    background: rgba(0, 34, 51, 0.8) url(http://cdn.bulbagarden.net/upload/b/bc/383MS.png) right no-repeat;
-    background-position: 215px;
-    color: #0086b3
-}
+
 .pm-window h3 small {
-    color: #e6f2ff;
+    color: #FFF;
 }
+
 .pm-window.focused h3,
 .pm-window.focused h3:hover {
-    border-color: #002133;
-    background: rgba(0, 34, 51, 0.8) url(http://cdn.bulbagarden.net/upload/b/bc/383MS.png) right no-repeat;
+    border-color: #cc0000;
+    background: rgba(153, 0, 0, 0.3) url(http://cdn.bulbagarden.net/upload/b/bc/383MS.png) right no-repeat;
     background-position: 215px;
-    color: rgba(159, 191, 223, 0.7);
+    color: #FFF;
 }
+
 /* CHAT */
  
 .userlist {
-    background: rgba(31, 122, 122, 0.5);
-    border-color: #1f7a7a;
-    color: #1f7a7a;
+    background: rgba(153, 0, 0, 0.3);
+    border-color: #cc0000;
+    color: #000;
 }
-.dark .userlist {
-    background: rgba(16, 43, 60, 0.8);
-    border-color: #102b3c;
-    color: #102b3c;
-}
+
 .userlist li {
-    background: rgba(230, 247, 255, 0.8);
-    border-color: #1f7a7a;
+    border-color: #cc0000;
 }
-.dark .userlist li {
-    background: rgba(230, 247, 255, 0.8);
-    border-color: #214a5f;
-}
+
 .userlist li em.group {
-    color: #1f7a7a;
+    color: #000;
 }
-.dark .userlist li em.group {
-    color: #333;
-}
-.dark .userlist strong,
-.dark .userlist span {
-    text-shadow: 0px 0px 1px #FFF;
-}
-.dark .userlist li button span {
-    text-shadow: 0px 0px 1px #EEE;
-}
+
+
 .userlist li button:hover,
-.userlist-minimized .userlist-count:hover,
-.dark .userlist li button:hover,
-.dark .userlist-minimized .userlist-count:hover {
+.userlist-minimized .userlist-count:hover {
     background: rgba(230, 247, 255, 0.8);
 }
+
 .infobox {
-    border-color: #1f7a7a;
+    border-color: #cc0000;
 }
+
 .chat-log {
     color: #000;
 }
+
 .dark .chat-log {
     color: #FFF;
 }
-.chat-log .chat small,
-.dark .chat-log .chat small {
-    color: #1f7a7a;
+
+.chat-log .chat small {
+    color: #cc0000;
 }
+
 .chat-log .chat.mine.chat small {
-    color: #124b54;
+    color: #b30000;
 }
+
 .chat-log-add {
     border-color: #002133;
     background: rgba(0, 85, 128, 0.6);
 }
+
 .chat-log-add .textbox {
     border-color: #002133;
 }
+
 .chatbox label {
     text-shadow: 0px 0px 2px #002133;
 }
+
 /* Tour */
  
 .tournament-title {
-    background: rgba(0, 153, 230, 0.4);
-    color: #35647e;
+    background: rgb(230, 0, 0);
+    color: #FFF;
 }
-.dark .tournament-title {
-    background: rgba(16, 43, 60, 0.8);
-    color: #006699;
-}
+
 .tournament-status,
 .tournament-toggle {
-    background: rgba(230, 247, 255, 0.8);
-    border-color: #1f7a7a;
-    color: #1f7a7a;
+    background: rgba(153, 0, 0, 0.3);
+    border-color: #cc0000;
+    color: #000;
 }
+
 .tournament-tools {
-    border-color: #1f717a;
-    background: rgba(0, 85, 128, 0.6);
+    border-color: #cc0000;
+    background: rgba(230, 0, 0, 0.7);
 }
-.dark .tournament-tools {
-    background: rgba(0, 34, 51, 0.8);
-    border-color: #002133
-}
+
 .tournament-tools .select {
-    border-color: #1f7a7a;
-    background: #006699;
-    color: #004466;
+    border-color: #cc0000;
+    background: rgba(153, 0, 0, 0.4);
+    color: #FFF;
 }
+
 .tournament-tools .select:hover {
     background: #0077b3;
 }
+
 .tournament-tools .select:disabled,
 .tournament-tools .select:disabled:hover {
-    background: rgba(0, 102, 153, 0.45);
-    color: #1f7a7a;
-    border-color: #1f7a7a;
+    background: rgba(153, 0, 0, 0.6);
+    color: #FFF;
+    border-color: #cc0000;
 }
+
 .tournament-tools .button {
-    border-color: #1f7a7a;
-    background: #006699;
-    color: #004466;
+    border-color: #cc0000;
+    background: rgba(153, 0, 0, 0.4);
+    color: #000;
 }
