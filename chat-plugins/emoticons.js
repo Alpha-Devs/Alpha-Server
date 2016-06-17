@@ -214,6 +214,7 @@ if (typeof demFeels.extendEmotes === 'function') {
 	'feelsdoctor': 'http://data.whicdn.com/avatars/25857926/thumb.jpg?1409831930',
 	'feelsmeryl': 'http://i.imgur.com/MlTIDTh.jpg',
 	'feelslaggin': 'https://data.ctc.ca.gov/vizql/v_91001510132200/images/30x30REV.gif',
+	'feelsfriday': 'http://orig14.deviantart.net/4f46/f/2011/281/f/6/happybirthdaydratini_lick_icon_by_sasodei001-d4c78f5.gif',
 	
 	
 	
