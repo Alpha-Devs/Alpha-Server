@@ -303,7 +303,6 @@ class User {
 		// settings
 		this.isSysop = false;
 		this.isStaff = false;
-		this.isSeniorStaff = false;
 		this.blockChallenges = false;
 		this.ignorePMs = false;
 		this.lastConnected = 0;
@@ -506,7 +505,6 @@ class User {
 		this.registered = false;
 		this.group = Config.groupsranking[0];
 		this.isStaff = false;
-		this.isSeniorStaff = false;
 		this.isSysop = false;
 		this.namelocked = false;
 
@@ -926,7 +924,6 @@ class User {
 			this.registered = false;
 			this.group = Config.groupsranking[0];
 			this.isStaff = false;
-			this.isSeniorStaff = false;
 			return;
 		}
 		this.registered = true;
@@ -950,11 +947,6 @@ class User {
 			this.avatar = Config.customavatars[this.userid];
 		}
 
-		this.isSeniorStaff = (this.group in {'&':1, '~':1});
-		if (!this.isSeniorStaff) {
-			let seniorstaffRoom = Rooms('seniorstaff');
-			this.isSeniorStaff = (seniorstaffRoom && seniorstaffRoom.auth && seniorstaffRoom.auth[this.userid]);
-		}
 		this.isStaff = (this.group in {'%':1, '@':1, '&':1, '~':1});
 		if (!this.isStaff) {
 			let staffRoom = Rooms('staff');
@@ -979,11 +971,6 @@ class User {
 	setGroup(group, forceConfirmed) {
 		if (!group) throw new Error("Falsy value passed to setGroup");
 		this.group = group.charAt(0);
-		this.isSeniorStaff = (this.group in {'&':1, '~':1});
-		if (!this.isSeniorStaff) {
-			let seniorstaffRoom = Rooms('seniorstaff');
-			this.isSeniorStaff = (seniorstaffRoom && seniorstaffRoom.auth && seniorstaffRoom.auth[this.useid]);
-		}
 		this.isStaff = (this.group in {'%':1, '@':1, '&':1, '~':1});
 		if (!this.isStaff) {
 			let staffRoom = Rooms('staff');
@@ -1032,7 +1019,6 @@ class User {
 			this.group = Config.groupsranking[0];
 			this.isSysop = false; // should never happen
 			this.isStaff = false;
-			this.isSeniorStaff = false;
 			// This isn't strictly necessary since we don't reuse User objects
 			// for PS, but just in case.
 			// We're not resetting .confirmed/.autoconfirmed so those accounts
@@ -1186,7 +1172,6 @@ class User {
 		if (!this.can('bypassall')) {
 			// check if user has permission to join
 			if (room.staffRoom && !this.isStaff) return false;
-			if (room.seniorstaffRoom && !this.isSeniorStaff) return false;
 			if (room.checkBanned && !room.checkBanned(this)) {
 				return null;
 			}
