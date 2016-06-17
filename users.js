@@ -982,7 +982,7 @@ class User {
 		this.isSeniorStaff = (this.group in {'&':1, '~':1});
 		if (!this.isSeniorStaff) {
 			let seniorstaffRoom = Rooms('seniorstaff');
-			this.isSeniorStaff = (seniorstaffRoom && seniorstaffRoom.auth && seniorstaffRoom.auth[this.useid]);
+			this.isSeniorStaff = (seniorstaffRoom && seniorstaffRoom.auth && seniorstaffRoom.auth[this.userid]);
 		}
 		this.isStaff = (this.group in {'%':1, '@':1, '&':1, '~':1});
 		if (!this.isStaff) {
