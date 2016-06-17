@@ -95,11 +95,21 @@ for (let file of fs.readdirSync(path.resolve(__dirname, 'chat-plugins'))) {
  * Modlog
  *********************************************************/
 
+let voicelog = exports.voicelog = {
+	lobby: fs.createWriteStream(path.resolve(__dirname, 'logs/voicelog/voicelog_lobby.txt'), {flags: 'a+'}),
+	battle: fs.createWriteStream(path.resolve(__dirname, 'logs/voicelog/voicelog__battle.txt'), {flags: 'a+'}),
+};
 let modlog = exports.modlog = {
 	lobby: fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/modlog_lobby.txt'), {flags:'a+'}),
 	battle: fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/modlog_battle.txt'), {flags:'a+'}),
 };
 
+let writeVoicelog = exports.writeVoicelog = function (roomid, text) {
+	if (!voicelog[roomid]) {
+		voicelog[roomid] = fs.createWriteStream(path.resolve(__dirname, 'logs/voicelog/voicelog_' + roomid + '.txt'), {flags: 'a+'});
+	}
+	voicelog[roomid].write('[' + (new Date().toJSON()) + ']' + text + '\n');
+};
 let writeModlog = exports.writeModlog = function (roomid, text) {
 	if (!modlog[roomid]) {
 		modlog[roomid] = fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/modlog_' + roomid + '.txt'), {flags:'a+'});
