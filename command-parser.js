@@ -220,7 +220,7 @@ class CommandContext {
 	logVoiceCommand (text) {
 		let roomid = (this.room.battle ? 'battle' : this.room.id);
 		if (this.room.isPersonal) roomid = 'groupchat';
-		writeVoicelog(roomid, '(' + this.room.id + ') ' + text);
+		writeModlog(roomid, '(' + this.room.id + ') ' + text);
 	}
 	logModCommand(text) {
 		let roomid = (this.room.battle ? 'battle' : this.room.id);
