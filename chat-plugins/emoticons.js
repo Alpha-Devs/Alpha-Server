@@ -213,6 +213,7 @@ if (typeof demFeels.extendEmotes === 'function') {
 	'feelsemol': 'http://wiki.pokemonpl.net/images/b/b9/Przfffddjdjdjddjdjdjdjjdjdjdyk%C5%82ad.gif',
 	'feelsdoctor': 'http://data.whicdn.com/avatars/25857926/thumb.jpg?1409831930',
 	'feelsmeryl': 'http://i.imgur.com/MlTIDTh.jpg',
+	'feelslaggin': 'https://data.ctc.ca.gov/vizql/v_91001510132200/images/30x30REV.gif',
 	
 	
 	
