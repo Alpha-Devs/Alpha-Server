@@ -1473,18 +1473,18 @@ exports.commands = {
 	 * Moderating: Other
 	 *********************************************************/
 	
-	vn: 'voicenote',
-	voicenote: function (target, room, user, connection) {
-		if (!target) return this.parse('/help voicenote');
+	vr: 'voicereport',
+	voicereport: function (target, room, user, connection) {
+		if (!target) return this.parse('/help voicereport');
 		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
 
 		if (target.length > MAX_REASON_LENGTH) {
-			return this.errorReply("The note is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
+			return this.errorReply("The report is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
 		}
 		if (!this.can('tournaments', null, room)) return false;
-		return this.privateVoiceCommand("(" + user.name + " notes: " + target + ")");
+		return this.privateModCommand("(" + user.name + " notes: " + target + ")");
 	},
-	voicenotehelp: ["/voicenote [note] - Adds a voice note that can be read through modlog. Requires: + to use, % @ # & ~ to view."],
+	voicenotehelp: ["/voicereport [note] - Adds a voice report that can be read through modlog. Requires: + to use, % @ # & ~ to view."],
 	
 	mn: 'modnote',
 	modnote: function (target, room, user, connection) {
