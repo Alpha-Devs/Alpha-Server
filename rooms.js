@@ -334,6 +334,11 @@ let GlobalRoom = (() => {
 				isPrivate: true,
 				staffRoom: true,
 				staffAutojoin: true,
+			}, {
+				title: 'Senior Staff',
+				isPrivate: true,
+				seniorStaffRoom: true,
+				seniorStaffAutojoin: true,
 			}];
 		}
 
@@ -341,6 +346,7 @@ let GlobalRoom = (() => {
 
 		this.autojoin = []; // rooms that users autojoin upon connecting
 		this.staffAutojoin = []; // rooms that staff autojoin upon connecting
+		this.seniorStaffAutojoin = []; // rooms that senior staff autojoin upon connecting
 		for (let i = 0; i < this.chatRoomData.length; i++) {
 			if (!this.chatRoomData[i] || !this.chatRoomData[i].title) {
 				console.log('ERROR: Room number ' + i + ' has no data.');
@@ -357,6 +363,7 @@ let GlobalRoom = (() => {
 			this.chatRooms.push(room);
 			if (room.autojoin) this.autojoin.push(id);
 			if (room.staffAutojoin) this.staffAutojoin.push(id);
+			if (room.seniorStaffAutojoin) this.seniorStaffAutojoin.push(id);
 		}
 
 		// this function is complex in order to avoid several race conditions
@@ -742,6 +749,23 @@ let GlobalRoom = (() => {
 				// if staffAutojoin is true: autojoin if isStaff
 				// if staffAutojoin is String: autojoin if user.group in staffAutojoin
 				// if staffAutojoin is anything truthy: autojoin if user has any roomauth
+				user.joinRoom(room.id, connection);
+			}
+		}
+		if(!user.named) return;
+		for (let i = 0; i < this.seniorStaffAutojoin.length; i++) {
+			let room = Rooms(this.seniorStaffAutojoin[i]);
+			if (!room) {
+				this.seniorStaffAutojoin.splice(i, 1);
+				i--;
+				continue;
+			}
+			if (room.seniorStaffAutojoin === true && user.isSeniorStaff ||
+					typeof room.seniorStaffAutojoin === 'string' && room.seniorStaffAutojoin.includes(user.group) ||
+					room.auth && user.userid in room.auth) {
+				// if seniorStaffAutojoin is true: autojoin if isSeniorStaff
+				// if seniorStaffAutojoin is String: autojoin if user.group in seniorStaffAutojoin
+				// if seniorStaffAutojoin is anything truthy: autojoin if user has any roomauth
 				user.joinRoom(room.id, connection);
 			}
 		}
