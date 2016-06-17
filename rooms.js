@@ -334,6 +334,12 @@ let GlobalRoom = (() => {
 				isPrivate: true,
 				staffRoom: true,
 				staffAutojoin: true,
+			}, {
+				title: 'Senior Staff',
+				isPrivate: true,
+				staffRoom: true,
+				staffAutojoin: true,
+			}
 			}];
 		}
 
