@@ -177,23 +177,6 @@ class CommandContext {
 		this.logEntry(data);
 		this.logModCommand(data);
 	}
-	privateVoiceCommand(date, noLog) {
-		this.sendVoiceCommand(data);
-		this.logEntry(data);
-		this.logVoiceCommand(data);
-	}
-	sendVoiceCommand(data) {
-		let user = this.room.users;
-		let auth = this.room.auth;
-		
-		for (let i in users) {
-			let users = users[i];
-			//hardcoded for performance reasons (this is an inner loop)
-			if (user.isAuth || auth && )auth[user.userid] || '$') !== '$')) {
-				users.sendTo(this.room, data);
-			}
-		}
-	}
 	sendModCommand(data) {
 		let users = this.room.users;
 		let auth = this.room.auth;
@@ -209,18 +192,9 @@ class CommandContext {
 	logEntry(data) {
 		this.room.logEntry(data);
 	}
-	addVoiceCommand(text, logOnlyText) {
-		this.add(text);
-		this.logVoiceCommand(text + (logOnlyText || ""));
-	}
 	addModCommand(text, logOnlyText) {
 		this.add(text);
 		this.logModCommand(text + (logOnlyText || ""));
-	}
-	logVoiceCommand (text) {
-		let roomid = (this.room.battle ? 'battle' : this.room.id);
-		if (this.room.isPersonal) roomid = 'groupchat';
-		writeModlog(roomid, '(' + this.room.id + ') ' + text);
 	}
 	logModCommand(text) {
 		let roomid = (this.room.battle ? 'battle' : this.room.id);
