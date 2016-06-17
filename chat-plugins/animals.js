@@ -5,7 +5,7 @@ const AnimalsHelp = '|raw|<div class="infobox"><strong>Animals Plugin by <font c
 
 exports.commands = {
 
-    animals: 'testimals', //
+    animals: 'testimals',
     testimals: function(target, room, user) {
         let tarId = toId(target);
         let validTargets = {
