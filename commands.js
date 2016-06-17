@@ -1473,6 +1473,19 @@ exports.commands = {
 	 * Moderating: Other
 	 *********************************************************/
 	
+	vn: 'voicenote'
+	voicenote: function (target, room, user, connection) {
+		if (!target) return this.parse('/help voicenote');
+		if (!this.canTalk()) return this.errorReply("You cannot voice note while unable to talk.");
+		
+		if (target.length > MAX_REASON_LENGTH) {
+			return this.errorReply ("The note is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
+		}
+		if (!this.can('broadcast', null, room)) return false;
+		return this.privateModCommand("(" + user.name + " notes: " + target + ")");
+	},
+	voicenothelp: ["/voicenote [note] - Adds a note for voices. Requires: + % @ # & ~"],
+	},
 	mn: 'modnote',
 	modnote: function (target, room, user, connection) {
 		if (!target) return this.parse('/help modnote');
