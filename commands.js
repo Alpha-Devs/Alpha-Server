@@ -1484,7 +1484,7 @@ exports.commands = {
 		if (!this.can('tournaments', null, room)) return false;
 		return this.privateModCommand("(" + user.name + " notes: " + target + ")");
 	},
-	voicenotehelp: ["/voicereport [note] - Adds a voice report that can be read through modlog. Requires: + to use, % @ # & ~ to view."],
+	voicereporthelp: ["/voicereport [note] - Adds a voice report that can be read through modlog. Requires: + to use, % @ # & ~ to view."],
 	
 	mn: 'modnote',
 	modnote: function (target, room, user, connection) {
