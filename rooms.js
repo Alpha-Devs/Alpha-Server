@@ -334,7 +334,6 @@ let GlobalRoom = (() => {
 				isPrivate: true,
 				staffRoom: true,
 				staffAutojoin: true,
-			}
 			}];
 		}
 
