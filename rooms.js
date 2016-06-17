@@ -747,7 +747,6 @@ let GlobalRoom = (() => {
 			if (room.seniorstaffAutojoin === true && user.isSeniorStaff ||
 				typeof room.seniorstaffAutojoin === 'string' && room.staffAutojoin.includes(user.group) ||
 				room.auth && user.userid in room.auth) {
-		}
 		for (let i = 0; i < this.staffAutojoin.length; i++) {
 			let room = Rooms(this.staffAutojoin[i]);
 			if (!room) {
