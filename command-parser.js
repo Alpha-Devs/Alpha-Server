@@ -184,7 +184,7 @@ class CommandContext {
 		for (let i in users) {
 			let user = users[i];
 			// hardcoded for performance reasons (this is an inner loop)
-			if (user.isStaff || (auth && (auth[user.userid] || '+')) {
+			if (user.isStaff || (auth && (auth[user.userid] || '+') !== '+')) {
 				user.sendTo(this.room, data);
 			}
 		}
