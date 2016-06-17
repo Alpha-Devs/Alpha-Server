@@ -1484,7 +1484,7 @@ exports.commands = {
 		if (!this.can('tournaments', null, room)) return false;
 		return this.privateVoiceCommand("(" + user.name + " notes: " + target + ")");
 	},
-	voicenotehelp: ["/voicenote [note] - Adds a voice note that can be read through modlog. Requires: + % @ # & ~"],
+	voicenotehelp: ["/voicenote [note] - Adds a voice note that can be read through voicelog. Requires: + % @ # & ~"],
 	
 	mn: 'modnote',
 	modnote: function (target, room, user, connection) {
@@ -1929,6 +1929,132 @@ exports.commands = {
 					"/banword delete [words] - Removes the comma-separated list of phrases from the banword list. Requires: # & ~",
 					"/banword list - Shows the list of banned words in the current room. Requires: @ # & ~"],
 
+	voicelog: function (target, room, user, connection) {
+		let lines = 0;
+		// Specific case for modlog command. Room can be indicated with a comma, lines go after the comma.
+		// Otherwise, the text is defaulted to text search in current room's modlog.
+		let roomId = (room.id === 'staff' ? 'global' : room.id);
+		let hideIps = !user.can('lock');
+		let path = require('path');
+		let isWin = process.platform === 'win32';
+		let logPath = 'logs/voicelog/';
+
+		if (target.includes(',')) {
+			let targets = target.split(',');
+			target = targets[1].trim();
+			roomId = toId(targets[0]) || room.id;
+		}
+
+		// Let's check the number of lines to retrieve or if it's a word instead
+		if (!target.match('[^0-9]')) {
+			lines = parseInt(target || 20);
+			if (lines > 100) lines = 100;
+		}
+		let wordSearch = (!lines || lines < 0);
+
+		// Control if we really, really want to check all modlogs for a word.
+		let roomNames = '';
+		let filename = '';
+		let command = '';
+		if (roomId === 'all' && wordSearch) {
+			if (!this.can('voicelog')) return;
+			roomNames = "all rooms";
+			// Get a list of all the rooms
+			let fileList = fs.readdirSync('logs/voicelog');
+			for (let i = 0; i < fileList.length; ++i) {
+				filename += path.normalize(__dirname + '/' + logPath + fileList[i]) + ' ';
+			}
+		} else if (roomId.startsWith('battle-') || roomId.startsWith('groupchat-')) {
+			return this.errorReply("Battles and groupchats do not have voicelogs.");
+		} else {
+			if (!this.can('voicelog', null, Rooms.get(roomId))) return;
+			roomNames = "the room " + roomId;
+			filename = path.normalize(__dirname + '/' + logPath + 'voicelog_' + roomId + '.txt');
+		}
+
+		// Seek for all input rooms for the lines or text
+		if (isWin) {
+			command = path.normalize(__dirname + '/lib/winvoicelog') + ' tail ' + lines + ' ' + filename;
+		} else {
+			command = 'tail -' + lines + ' ' + filename + ' | tac';
+		}
+		let grepLimit = 100;
+		let strictMatch = false;
+		if (wordSearch) { // searching for a word instead
+			let searchString = target;
+			strictMatch = true; // search for a 1:1 match?
+
+			if (searchString.match(/^["'].+["']$/)) {
+				searchString = searchString.substring(1, searchString.length - 1);
+			} else if (searchString.includes('_')) {
+				// do an exact search, the approximate search fails for underscores
+			} else if (isWin) {  // ID search with RegEx isn't implemented for windows yet (feel free to add it to winmodlog.cmd)
+				target = '"' + target + '"';  // add quotes to target so the caller knows they are getting a strict match
+			} else {
+				// search for ID: allow any number of non-word characters (\W*) in between the letters we have to match.
+				// i.e. if searching for "myUsername", also match on "My User-Name".
+				// note that this doesn't really add a lot of unwanted results, since we use \b..\b
+				target = toId(target);
+				searchString = '\\b' + target.split('').join('\\W*') + '\\b';
+				strictMatch = false;
+			}
+
+			if (isWin) {
+				if (strictMatch) {
+					command = path.normalize(__dirname + '/lib/winvoicelog') + ' ws ' + grepLimit + ' "' + searchString.replace(/%/g, "%%").replace(/([\^"&<>\|])/g, "^$1") + '" ' + filename;
+				} else {
+					// doesn't happen. ID search with RegEx isn't implemented for windows yet (feel free to add it to winmodlog.cmd and call it from here)
+				}
+			} else {
+				if (strictMatch) {
+					command = "awk '{print NR,$0}' " + filename + " | sort -nr | cut -d' ' -f2- | grep -m" + grepLimit + " -i '" + searchString.replace(/\\/g, '\\\\\\\\').replace(/["'`]/g, '\'\\$&\'').replace(/[\{\}\[\]\(\)\$\^\.\?\+\-\*]/g, '[$&]') + "'";
+				} else {
+					command = "awk '{print NR,$0}' " + filename + " | sort -nr | cut -d' ' -f2- | grep -m" + grepLimit + " -Ei '" + searchString + "'";
+				}
+			}
+		}
+
+		// Execute the file search to see modlog
+		require('child_process').exec(command, (error, stdout, stderr) => {
+			if (error && stderr) {
+				connection.popup("/voicelog empty on " + roomNames + " or erred");
+				console.log("/voicelog error: " + error);
+				return false;
+			}
+			if (stdout && hideIps) {
+				stdout = stdout.replace(/\([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+\)/g, '');
+			}
+			stdout = stdout.split('\n').map(line => {
+				let bracketIndex = line.indexOf(']');
+				let parenIndex = line.indexOf(')');
+				if (bracketIndex < 0) return Tools.escapeHTML(line);
+				const time = line.slice(1, bracketIndex);
+				let timestamp = Tools.toTimeStamp(new Date(time), {hour12: true});
+				parenIndex = line.indexOf(')');
+				let roomid = line.slice(bracketIndex + 3, parenIndex);
+				if (!hideIps && Config.voiceloglink) {
+					let url = Config.voiceloglink(time, roomid);
+					if (url) timestamp = '<a href="' + url + '">' + timestamp + '</a>';
+				}
+				return '<small>[' + timestamp + '] (' + roomid + ')</small>' + Tools.escapeHTML(line.slice(parenIndex + 1));
+			}).join('<br />');
+			if (lines) {
+				if (!stdout) {
+					connection.popup("The voicelog is empty. (Weird.)");
+				} else {
+					connection.popup("|wide||html|<p>The last " + lines + " lines of the Voice Log of " + roomNames + ":</p>" + stdout);
+				}
+			} else {
+				if (!stdout) {
+					connection.popup("No voice actions containing " + target + " were found on " + roomNames + "." +
+					                 (strictMatch ? "" : " Add quotes to the search parameter to search for a phrase, rather than a user."));
+				} else {
+					connection.popup("|wide||html|<p>The last " + grepLimit + " logged actions containing " + target + " on " + roomNames + "." +
+					                 (strictMatch ? "" : " Add quotes to the search parameter to search for a phrase, rather than a user.") + "</p>" + stdout);
+				}
+			}
+		});
+	},
 	modlog: function (target, room, user, connection) {
 		let lines = 0;
 		// Specific case for modlog command. Room can be indicated with a comma, lines go after the comma.
