@@ -1484,6 +1484,8 @@ exports.commands = {
 		if (!this.can('broadcast', null, room)) return false;
 		return this.privateModCommand("(" + user.name + " notes: " + target + ")");
 	},
+	voicenothelp: ["/voicenote [note] - Adds a note for voices. Requires: + % @ # & ~"],
+	},
 	mn: 'modnote',
 	modnote: function (target, room, user, connection) {
 		if (!target) return this.parse('/help modnote');
