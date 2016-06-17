@@ -334,6 +334,12 @@ let GlobalRoom = (() => {
 				isPrivate: true,
 				staffRoom: true,
 				staffAutojoin: true,
+			}, {
+				title: 'Senior Staff',
+				isPrivate: true,
+				seniorstaffRoom: true,
+				seniorstaffAutojoin: true,
+			}
 			}];
 		}
 
@@ -341,6 +347,7 @@ let GlobalRoom = (() => {
 
 		this.autojoin = []; // rooms that users autojoin upon connecting
 		this.staffAutojoin = []; // rooms that staff autojoin upon connecting
+		this.seniorstaffAutojoin = []; // rooms that senior staff autojoin upon connecting
 		for (let i = 0; i < this.chatRoomData.length; i++) {
 			if (!this.chatRoomData[i] || !this.chatRoomData[i].title) {
 				console.log('ERROR: Room number ' + i + ' has no data.');
@@ -356,7 +363,8 @@ let GlobalRoom = (() => {
 			}
 			this.chatRooms.push(room);
 			if (room.autojoin) this.autojoin.push(id);
-			if (room.staffAutojoin) this.staffAutojoin.push(id);
+			if (room.staffAutojoin) this.staffAutojoin.push(id)
+			if (room.seniorstaffAutojoin) this.seniorstaffAutojoin.push(id)
 		}
 
 		// this function is complex in order to avoid several race conditions
@@ -729,6 +737,17 @@ let GlobalRoom = (() => {
 	};
 	GlobalRoom.prototype.checkAutojoin = function (user, connection) {
 		if (!user.named) return;
+		for (let i = 0; i < this.seniorstaffAutojoin.length; i++) {
+			let room = Rooms(this.seniorstaffAutojoin[i]);
+			if (!room) {
+				this.seniorstaffAutojoin.splice(i, 1);
+				i--;
+				continue;
+			}
+			if (room.seniorstaffAutojoin === true && user.isSeniorStaff ||
+				typeof room.seniorstaffAutojoin === 'string' && room.staffAutojoin.includes(user.group) ||
+				room.auth && user.userid in room.auth) {
+		}
 		for (let i = 0; i < this.staffAutojoin.length; i++) {
 			let room = Rooms(this.staffAutojoin[i]);
 			if (!room) {
