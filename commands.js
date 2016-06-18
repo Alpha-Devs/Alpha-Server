@@ -1388,6 +1388,36 @@ exports.commands = {
 	},
 	unbanallhelp: ["/unbanall - Unban all IP addresses. Requires: & ~"],
 
+	deroomauthall: function (target, room, user) {
+		if (!this.can('root', null, room)) return false;
+		if (!room.auth) return this.errorReply("Room does not have any roomauth to delete.");
+		if (!target) {
+			user.lastCommand = '/deroomauthall';
+			this.errorReply("ALL ROOMAUTH WILL BE GONE, ARE YOU SURE?");
+			this.errorReply("To confirm, use: /deroomauthall confirm");
+			return;
+		}
+		if (user.lastCommand !== '/deroomauthall' || target !== 'confirm') {
+			return this.parse('/help deroomauthall');
+		}
+		let count = 0;
+		for (let userid in room.auth) {
+			if (room.auth[userid] === '+', '$', '%', '@', '&', '#') {
+				delete room.auth[userid];
+				if (userid in room.users) room.users[userid].updateIdentity(room.id);
+				count++;
+			}
+		}
+		if (!count) {
+			return this.sendReply("(This room has no roomauth)");
+		}
+		if (room.chatRoomData) {
+			Rooms.global.writeChatRoomData();
+		}
+		this.addModCommand("All " + count + " roomauth has been cleared by " + user.name + ".");
+	},
+	deroomauthallhelp: ["/deroomauthall - Deauths all roomauthed users. Requires: ~"],
+	
 	deroomvoiceall: function (target, room, user) {
 		if (!this.can('editroom', null, room)) return false;
 		if (!room.auth) return this.errorReply("Room does not have roomauth.");
