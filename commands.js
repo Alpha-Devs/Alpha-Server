@@ -337,16 +337,16 @@ exports.commands = {
 			targetRoom.isPrivate = true;
 			targetRoom.chatRoomData.isPrivate = true;
 			Rooms.global.writeChatRoomData();
-			if (Rooms.get('upperstaff')) {
-				Rooms.get('upperstaff').add('|raw|<div class="broadcast-green">Private chat room created: <b>' + Tools.escapeHTML(target) + '</b></div>').update();
+			if (Rooms.get('seniorstaff')) {
+				Rooms.get('seniorstaff').add('|raw|<div class="broadcast-green">Private chat room created: <b>' + Tools.escapeHTML(target) + '</b></div>').update();
 			}
 			this.sendReply("The private chat room '" + target + "' was created.");
 		} else {
 			if (Rooms.get('staff')) {
 				Rooms.get('staff').add('|raw|<div class="broadcast-green">Public chat room created: <b>' + Tools.escapeHTML(target) + '</b></div>').update();
 			}
-			if (Rooms.get('upperstaff')) {
-				Rooms.get('upperstaff').add('|raw|<div class="broadcast-green">Public chat room created: <b>' + Tools.escapeHTML(target) + '</b></div>').update();
+			if (Rooms.get('seniorstaff')) {
+				Rooms.get('seniorstaff').add('|raw|<div class="broadcast-green">Public chat room created: <b>' + Tools.escapeHTML(target) + '</b></div>').update();
 			}
 			this.sendReply("The chat room '" + target + "' was created.");
 		}
@@ -473,15 +473,15 @@ exports.commands = {
 
 		if (targetRoom.chatRoomData) {
 			if (targetRoom.isPrivate) {
-				if (Rooms.get('upperstaff')) {
-					Rooms.get('upperstaff').add('|raw|<div class="broadcast-red">Private chat room deleted: <b>' + Tools.escapeHTML(target) + '</b></div>').update();
+				if (Rooms.get('seniorstaff')) {
+					Rooms.get('seniorstaff').add('|raw|<div class="broadcast-red">Private chat room deleted: <b>' + Tools.escapeHTML(target) + '</b></div>').update();
 				}
 			} else {
 				if (Rooms.get('staff')) {
 					Rooms.get('staff').add('|raw|<div class="broadcast-red">Public chat room deleted: <b>' + Tools.escapeHTML(target) + '</b></div>').update();
 				}
-				if (Rooms.get('upperstaff')) {
-					Rooms.get('upperstaff').add('|raw|<div class="broadcast-red">Public chat room deleted: <b>' + Tools.escapeHTML(target) + '</b></div>').update();
+				if (Rooms.get('seniorstaff')) {
+					Rooms.get('seniorstaff').add('|raw|<div class="broadcast-red">Public chat room deleted: <b>' + Tools.escapeHTML(target) + '</b></div>').update();
 				}
 			}
 		}
