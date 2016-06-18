@@ -1514,8 +1514,9 @@ exports.commands = {
 		if (!this.can('tournaments', null, room)) return false;
 		var targetRoom = Rooms.get('seniorstaff');
 		targetRoom.add('[Voice Report Monitor] ' + (room ? '(' + room + ') ' : '') + Tools.escapeHTML(user.name) + ' has reported that "' + target + '"').update();
+		return this.sendReply("Your report has been received.")
 	},
-	voicereporthelp: ["/voicereport [note] - Adds a voice report that can be read through modlog. Requires: + to use, & ~ to view."],
+	voicereporthelp: ["/voicereport [note] - Adds a voice report that can be read through modlog if the message is not an acctual report you will get in trouble. Requires: + to use, & ~ to view."],
 	
 	mn: 'modnote',
 	modnote: function (target, room, user, connection) {
