@@ -1512,8 +1512,8 @@ exports.commands = {
 			return this.errorReply("The report is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
 		}
 		if (!this.can('tournaments', null, room)) return false;
-		Rooms('seniorstaff').add('[Voice Report Monitor] ' + (room ? '(' + room + ') ' : '') + Tools.escapeHTML(user.name) +
-			' has reported that "' + message + '"').update();
+		var targetRoom = Rooms.get('seniorstaff');
+		targetRoom.add('[Voice Report Monitor] ' + (room ? '(' + room + ') ' : '') + Tools.escapeHTML(user.name) + ' has reported that "' + message + '"').update();
 	},
 	voicereporthelp: ["/voicereport [note] - Adds a voice report that can be read through modlog. Requires: + to use, & ~ to view."],
 	
