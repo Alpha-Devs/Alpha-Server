@@ -25,8 +25,8 @@ const Monitor = module.exports = { // eslint-disable-line no-unused-vars
 	},
 	adminlog: function (text) {
 		this.notice(text);
-		if (Rooms('upperstaff')) {
-			Rooms('upperstaff').add('|c|~|' + text).update();
+		if (Rooms('seniorstaff')) {
+			Rooms('seniorstaff').add('|c|~|' + text).update();
 		}
 	},
 	logHTML: function (text) {
