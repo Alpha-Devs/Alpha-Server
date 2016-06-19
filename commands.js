@@ -1507,7 +1507,7 @@ exports.commands = {
 		targetRoom.add('[Staff Report Monitor] ' + (room ? '(' + room + ') ' : '') + Tools.escapeHTML(user.name) + ' has reported that "' + target + '"').update();
 		return this.sendReply("Your staff report has been received. You will be notified shortly.")
 	},
-	reportstaffhelp: ["/reportstaff [note] - Reports a staff member to Senior Staff. [False reports are ZERO tolerance and will result in a lock.] Viewed by: & ~"],
+	reportstaffhelp: ["/reportstaff [note + pastebin] - Reports a staff member to Senior Staff. [False reports are ZERO tolerance] "],
 	
 	report: 'reportuser',
 	reportuser: function (target, room, user, connection) {
@@ -1522,7 +1522,7 @@ exports.commands = {
 		targetRoom.add('[User Report Monitor] ' + (room ? '(' + room + ') ' : '') + Tools.escapeHTML(user.name) + ' has reported that "' + target + '"').update();
 		return this.sendReply("Your report has been received. Thank you for your time!")
 	},
-	reportuserhelp: ["/reportuser [note] - Reports something to Staff. [False reports are ZERO tolerance] Viewed by: % @ & ~"],
+	reportuserhelp: ["/reportuser [note + pastebin] - Reports something to Staff. [False reports are ZERO tolerance] Viewed by: % @ & ~"],
 	
 	vr: 'voicereport',
 	voicereport: function (target, room, user, connection) {
@@ -1537,7 +1537,7 @@ exports.commands = {
 		targetRoom.add('[Voice Report Monitor] ' + (room ? '(' + room + ') ' : '') + Tools.escapeHTML(user.name) + ' has reported that "' + target + '"').update();
 		return this.sendReply("Your report has been received.")
 	},
-	voicereporthelp: ["/voicereport [note] - Reports something to Senior staff. [False reports are ZERO tolerance] Requires: + to use, & ~ to view."],
+	voicereporthelp: ["/voicereport [note + pastebin] - Reports something to Senior staff. [False reports are ZERO tolerance] Requires: + to use, & ~ to view."],
 	
 	mn: 'modnote',
 	modnote: function (target, room, user, connection) {
