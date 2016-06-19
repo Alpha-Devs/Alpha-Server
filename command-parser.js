@@ -100,23 +100,11 @@ let modlog = exports.modlog = {
 	battle: fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/modlog_battle.txt'), {flags:'a+'}),
 };
 
-let adminlog = exports.adminlog = {
-	lobby: fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/modlog_lobby.txt'), {flags:'a+'}),
-	battle: fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/modlog_battle.txt'), {flags:'a+'}),
-};
-
 let writeModlog = exports.writeModlog = function (roomid, text) {
 	if (!modlog[roomid]) {
 		modlog[roomid] = fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/modlog_' + roomid + '.txt'), {flags:'a+'});
 	}
 	modlog[roomid].write('[' + (new Date().toJSON()) + '] ' + text + '\n');
-};
-
-let writeAdminlog = exports.writeAdminlog = function (roomid, text) {
-	if (!adminlog[roomid]) {
-		adminlog[roomid] = fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/modlog_' + roomid + '.txt'), {flags:'a+'});
-	}
-	adminlog[roomid].write('[' + (new Date().toJSON()) + '] ' + text + '\n');
 };
 
 /*********************************************************
@@ -245,18 +233,6 @@ class CommandContext {
 		}
 		buf += text;
 		writeModlog('global', buf);
-	}
-	globalAdminlog(action, user, text) {
-		let buf = "(" + this.room.id + ") " + action + ": ";
-		if (typeof user === 'string') {
-			buf += "[" + toId(user) + "]";
-		} else {
-			let userid = user.getLastId();
-			buf += "[" + userid + "]";
-			if (user.autoconfirmed && user.autoconfirmed !== userid) buf += " ac:[" + user.autoconfirmed + "]";
-		}
-		buf += text;
-		writeAdminlog('global', buf);
 	}
 	can(permission, target, room) {
 		if (!this.user.can(permission, target, room)) {
