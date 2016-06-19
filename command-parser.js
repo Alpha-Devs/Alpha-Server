@@ -100,11 +100,23 @@ let modlog = exports.modlog = {
 	battle: fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/modlog_battle.txt'), {flags:'a+'}),
 };
 
+let adminlog = exports.adminlog = {
+	lobby: fs.createWriteStream(path.resolve(__dirname, 'logs/adminlog/adminlog_lobby.txt'), {flags:'a+'}),
+	battle: fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/adminlog_battle.txt'), {flags:'a+'}),
+};
+
 let writeModlog = exports.writeModlog = function (roomid, text) {
 	if (!modlog[roomid]) {
 		modlog[roomid] = fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/modlog_' + roomid + '.txt'), {flags:'a+'});
 	}
 	modlog[roomid].write('[' + (new Date().toJSON()) + '] ' + text + '\n');
+};
+
+let writeAdminlog = exports.writeAdminlog = function (roomid, text) {
+	if (!adminlog[roomid]) {
+		adminlog[roomid] = fs.createWriteStream(path.resolve(__dirname, 'logs/adminlog/adminlog_' + roomid + '.txt'), {flags:'a+'});
+	}
+	adminlog[roomid].write('[' + (new Date().toJSON()) + '] ' + text + '\n');
 };
 
 /*********************************************************
@@ -177,6 +189,11 @@ class CommandContext {
 		this.logEntry(data);
 		this.logModCommand(data);
 	}
+	privateAdminCommand(data, noLog) {
+		this.sendAdminCommand(data);
+		this.logEntry(data);
+		this.logAdminCommand(data);
+	}
 	sendModCommand(data) {
 		let users = this.room.users;
 		let auth = this.room.auth;
@@ -189,12 +206,28 @@ class CommandContext {
 			}
 		}
 	}
+	sendAdminCommand(data) {
+		let users = this.room.users;
+		let auth = this.room.auth;
+
+		for (let i in users) {
+			let user = users[i];
+			// hardcoded for performance reasons (this is an inner loop)
+			if (user.isseniorStaff || (auth && (auth[user.userid] || '+', '%', '@') !== '+', '%', '@')) {
+				user.sendTo(this.room, data);
+			}
+		}
+	}
 	logEntry(data) {
 		this.room.logEntry(data);
 	}
 	addModCommand(text, logOnlyText) {
 		this.add(text);
 		this.logModCommand(text + (logOnlyText || ""));
+	}
+	addAdminCommand(text, logOnlyText) {
+		this.add(text);
+		this.logAdminCommand(text + (logOnlyText || ""));
 	}
 	logModCommand(text) {
 		let roomid = (this.room.battle ? 'battle' : this.room.id);
@@ -212,6 +245,18 @@ class CommandContext {
 		}
 		buf += text;
 		writeModlog('global', buf);
+	}
+	globalAdminlog(action, user, text) {
+		let buf = "(" + this.room.id + ") " + action + ": ";
+		if (typeof user === 'string') {
+			buf += "[" + toId(user) + "]";
+		} else {
+			let userid = user.getLastId();
+			buf += "[" + userid + "]";
+			if (user.autoconfirmed && user.autoconfirmed !== userid) buf += " ac:[" + user.autoconfirmed + "]";
+		}
+		buf += text;
+		writeAdminlog('global', buf);
 	}
 	can(permission, target, room) {
 		if (!this.user.can(permission, target, room)) {
