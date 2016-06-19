@@ -120,15 +120,6 @@ exports.commands = {
 		user.resetName();
 	},
 
-	requesthelp: 'report',
-	report: function (target, room, user) {
-		if (room.id === 'help') {
-			this.sendReply("Ask one of the Moderators (@) in the Help room.");
-		} else {
-			this.parse('/join help');
-		}
-	},
-
 	r: 'reply',
 	reply: function (target, room, user) {
 		if (!target) return this.parse('/help reply');
@@ -1503,6 +1494,30 @@ exports.commands = {
 	 * Moderating: Other
 	 *********************************************************/
 	
+	sreport: 'reportstaff',
+	reportstaff: function (target, room, user, connection) {
+		if (!target) return this.parse('/help reportstaff');
+
+		}
+		if (!this.can('minigame', null, room)) return false;
+		var targetRoom = Rooms.get('seniorstaff');
+		targetRoom.add('[Staff Report Monitor] ' + (room ? '(' + room + ') ' : '') + Tools.escapeHTML(user.name) + ' has reported that "' + target + '"').update();
+		return this.sendReply("Your staff report has been received. You will be notified shortly.")
+	},
+	reportstaffhelp: ["/reportstaff [note] - Reports a staff member to Senior Staff. [False reports are ZERO tolerance and will result in a lock.] Viewed by: & ~"],
+	
+	report: 'reportuser',
+	reportuser: function (target, room, user, connection) {
+		if (!target) return this.parse('/help reportuser');
+
+		}
+		if (!this.can('minigame', null, room)) return false;
+		var targetRoom = Rooms.get('staff');
+		targetRoom.add('[User Report Monitor] ' + (room ? '(' + room + ') ' : '') + Tools.escapeHTML(user.name) + ' has reported that "' + target + '"').update();
+		return this.sendReply("Your report has been received. Thank you for your time!")
+	},
+	reportuserhelp: ["/reportuser [note] - Reports something to Staff. [False reports are ZERO tolerance] Viewed by: % @ & ~"],
+	
 	vr: 'voicereport',
 	voicereport: function (target, room, user, connection) {
 		if (!target) return this.parse('/help voicereport');
@@ -1516,7 +1531,7 @@ exports.commands = {
 		targetRoom.add('[Voice Report Monitor] ' + (room ? '(' + room + ') ' : '') + Tools.escapeHTML(user.name) + ' has reported that "' + target + '"').update();
 		return this.sendReply("Your report has been received.")
 	},
-	voicereporthelp: ["/voicereport [note] - Adds a voice report that can be read through modlog if the message is not an acctual report you will get in trouble. Requires: + to use, & ~ to view."],
+	voicereporthelp: ["/voicereport [note] - Reports something to Senior staff. [False reports are ZERO tolerance] Requires: + to use, & ~ to view."],
 	
 	mn: 'modnote',
 	modnote: function (target, room, user, connection) {
