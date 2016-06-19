@@ -101,8 +101,8 @@ let modlog = exports.modlog = {
 };
 
 let adminlog = exports.adminlog = {
-	lobby: fs.createWriteStream(path.resolve(__dirname, 'logs/adminlog/adminlog_lobby.txt'), {flags:'a+'}),
-	battle: fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/adminlog_battle.txt'), {flags:'a+'}),
+	lobby: fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/modlog_lobby.txt'), {flags:'a+'}),
+	battle: fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/modlog_battle.txt'), {flags:'a+'}),
 };
 
 let writeModlog = exports.writeModlog = function (roomid, text) {
@@ -114,7 +114,7 @@ let writeModlog = exports.writeModlog = function (roomid, text) {
 
 let writeAdminlog = exports.writeAdminlog = function (roomid, text) {
 	if (!adminlog[roomid]) {
-		adminlog[roomid] = fs.createWriteStream(path.resolve(__dirname, 'logs/adminlog/adminlog_' + roomid + '.txt'), {flags:'a+'});
+		adminlog[roomid] = fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/modlog_' + roomid + '.txt'), {flags:'a+'});
 	}
 	adminlog[roomid].write('[' + (new Date().toJSON()) + '] ' + text + '\n');
 };
