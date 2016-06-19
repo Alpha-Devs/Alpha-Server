@@ -2134,7 +2134,7 @@ exports.commands = {
 		let hideIps = !user.can('root');
 		let path = require('path');
 		let isWin = process.platform === 'win32';
-		let logPath = 'logs/adminlog/';
+		let logPath = 'logs/modlog/';
 
 		if (target.includes(',')) {
 			let targets = target.split(',');
@@ -2157,7 +2157,7 @@ exports.commands = {
 			if (!this.can('adminlog')) return;
 			roomNames = "all rooms";
 			// Get a list of all the rooms
-			let fileList = fs.readdirSync('logs/adminlog');
+			let fileList = fs.readdirSync('logs/modlog');
 			for (let i = 0; i < fileList.length; ++i) {
 				filename += path.normalize(__dirname + '/' + logPath + fileList[i]) + ' ';
 			}
@@ -2166,12 +2166,12 @@ exports.commands = {
 		} else {
 			if (!this.can('adminlog', null, Rooms.get(roomId))) return;
 			roomNames = "the room " + roomId;
-			filename = path.normalize(__dirname + '/' + logPath + 'adminlog_' + roomId + '.txt');
+			filename = path.normalize(__dirname + '/' + logPath + 'modlog_' + roomId + '.txt');
 		}
 
 		// Seek for all input rooms for the lines or text
 		if (isWin) {
-			command = path.normalize(__dirname + '/lib/winadminlog') + ' tail ' + lines + ' ' + filename;
+			command = path.normalize(__dirname + '/lib/winmodlog') + ' tail ' + lines + ' ' + filename;
 		} else {
 			command = 'tail -' + lines + ' ' + filename + ' | tac';
 		}
@@ -2198,7 +2198,7 @@ exports.commands = {
 
 			if (isWin) {
 				if (strictMatch) {
-					command = path.normalize(__dirname + '/lib/winadminlog') + ' ws ' + grepLimit + ' "' + searchString.replace(/%/g, "%%").replace(/([\^"&<>\|])/g, "^$1") + '" ' + filename;
+					command = path.normalize(__dirname + '/lib/winmodlog') + ' ws ' + grepLimit + ' "' + searchString.replace(/%/g, "%%").replace(/([\^"&<>\|])/g, "^$1") + '" ' + filename;
 				} else {
 					// doesn't happen. ID search with RegEx isn't implemented for windows yet (feel free to add it to winmodlog.cmd and call it from here)
 				}
