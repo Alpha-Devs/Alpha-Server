@@ -1497,7 +1497,10 @@ exports.commands = {
 	sreport: 'reportstaff',
 	reportstaff: function (target, room, user, connection) {
 		if (!target) return this.parse('/help reportstaff');
+		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk. Please PM an Admin or Leader instead.");
 
+		if (target.length > MAX_REASON_LENGTH) {
+			return this.errorReply("The report is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
 		}
 		if (!this.can('minigame', null, room)) return false;
 		var targetRoom = Rooms.get('seniorstaff');
@@ -1509,7 +1512,10 @@ exports.commands = {
 	report: 'reportuser',
 	reportuser: function (target, room, user, connection) {
 		if (!target) return this.parse('/help reportuser');
+		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk. If you're trying to report staff, use /reportstaff!");
 
+		if (target.length > MAX_REASON_LENGTH) {
+			return this.errorReply("The report is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
 		}
 		if (!this.can('minigame', null, room)) return false;
 		var targetRoom = Rooms.get('staff');
