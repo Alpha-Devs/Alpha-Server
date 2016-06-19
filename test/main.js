@@ -95,7 +95,7 @@ before('initialization', function (done) {
 		'chat-plugins': getDirTypedContentsSync('chat-plugins', 'file'),
 		'mods': getDirTypedContentsSync('mods', 'dir'),
 		'logs': {
-			'chat': {}, 'ladderip': {}, 'modlog': {}, 'repl': {},
+			'chat': {}, 'ladderip': {}, 'modlog': {}, 'adminlog': {}, 'repl': {},
 			'lastbattle.txt': '0',
 		},
 	};
