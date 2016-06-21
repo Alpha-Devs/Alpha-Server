@@ -437,7 +437,7 @@ exports.commands = {
 		let moneyObject = Db('money').object();
 		Object.keys(moneyObject)
 			.filter(function (name) {
-				return Db('money').get(name) < 1000;
+				return Db('money').get(name) < 1000000);
 			})
 			.forEach(function (name) {
 				delete moneyObject[name];
