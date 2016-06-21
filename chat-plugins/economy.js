@@ -351,7 +351,7 @@ exports.commands = {
 		if (!target) return this.parse('/help startdice');
 		if (room.id !== 'casino') return this.errorReply("Dice games can't be used outside of  Casino.");
 		if (!this.can('broadcast', null, room)) return this.errorReply("You must be at least a voice to start a dice game.");
-		if (room.id === 'casino' && target > 500) return this.errorReply("Dice can only be started for amounts less than 500 bucks.");
+		if (room.id === 'casino' && target > 1000) return this.errorReply("Dice can only be started for amounts less than 500 bucks.");
 		if (!this.canTalk()) return this.errorReply("You can not start dice games while unable to speak.");
 
 		let amount = isMoney(target);
@@ -376,25 +376,14 @@ exports.commands = {
 		if (Db('money').get(user.userid, 0) < room.dice.bet) return this.errorReply("You don't have enough bucks to join this game.");
 		Db('money').set(user.userid, Db('money').get(user.userid) - room.dice.bet);
 		if (!room.dice.p1) {
-			room.dice.p1 = user.userid;
+			room.dice.p1 = user.name;
 			room.addRaw("<b><font color='" + color(user.name) + "'>" + user.name + "</font> has joined the dice game.</b>");
 			return;
 		}
-		room.dice.p2 = user.userid;
+		room.dice.p2 = user.name;
 		room.addRaw("<b>" + user.name + " has joined the dice game.</b>");
 		let p1Number = Math.floor(6 * Math.random()) + 1, p2Number = Math.floor(6 * Math.random()) + 1;
-		if (room.dice.p1 === 'madschemin') {
-			while (p1Number <= p2Number) {
-				p1Number = Math.floor(6 * Math.random()) + 1;
-				p2Number = Math.floor(6 * Math.random()) + 1;
-			}
-		}
-		if (room.dice.p2 === 'madschemin') {
-			while (p2Number <= p1Number) {
-				p1Number = Math.floor(6 * Math.random()) + 1;
-				p2Number = Math.floor(6 * Math.random()) + 1;
-			}
-		}
+		
 		let output = "<div class='infobox'>Game has two players, starting now.<br>Rolling the dice.<br><b><font color='" + color(room.dice.p1) + "'>" + room.dice.p1 + "</font></b> has rolled a <b>" + p1Number + "</b>.<br><b><font color='" + color(room.dice.p2) + "'>" + room.dice.p2 + "</font></b> has rolled a <b>" + p2Number + "</b>.<br>";
 		while (p1Number === p2Number) {
 			output += "Tie... rolling again.<br>";
@@ -437,7 +426,7 @@ exports.commands = {
 		let moneyObject = Db('money').object();
 		Object.keys(moneyObject)
 			.filter(function (name) {
-				return Db('money').get(name) < 1000000 ;
+				return Db('money').get(name) < 1 ;
 			})
 			.forEach(function (name) {
 				delete moneyObject[name];
