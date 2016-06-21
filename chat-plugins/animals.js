@@ -1,4 +1,7 @@
+'use strict';
+
 const http = require('http');
+
 
 exports.commands = {
 	giphy: function (target, room, user) {
