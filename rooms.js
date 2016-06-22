@@ -1530,8 +1530,13 @@ let ChatRoom = (() => {
 	};
 	ChatRoom.prototype.getIntroMessage = function (user) {
 		let message = '';
+<<<<<<< HEAD
 		if (this.introMessage) message += '\n|raw|<div class="infobox infobox-roomintro">' + this.introMessage + '</div>';
 		if (this.staffMessage && user.can('mute', null, this)) message += (message ? '<br />' : '\n|raw|<div class="infobox">') + '(Staff intro:)<br /><div>' + this.staffMessage + '</div>';
+=======
+		if (this.introMessage) message += '\n|raw|<div class="infobox infobox-roomintro"><div' + (!this.isOfficial ? ' class="infobox-limited"' : '') + '>' + this.introMessage.replace(/\n/g, '') + '</div>';
+		if (this.staffMessage && user.can('mute', null, this)) message += (message ? '<br />' : '\n|raw|<div class="infobox">') + '(Staff intro:)<br /><div>' + this.staffMessage.replace(/\n/g, '') + '</div>';
+>>>>>>> 6b454b6e1dc7e31473b2375278c64317214a161e
 		if (this.modchat) {
 			message += (message ? '<br />' : '\n|raw|<div class="infobox">') + '<div class="broadcast-red">' +
 				'Must be rank ' + this.modchat + ' or higher to talk right now.' +

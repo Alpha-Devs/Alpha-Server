@@ -974,7 +974,7 @@ exports.BattleMovedex = {
 				return false;
 			}
 			if (!target.setItem(yourItem)) {
-				source.item = yourItem;
+				source.item = yourItem.id;
 				return false;
 			}
 			this.add('-item', target, yourItem.name, '[from] move: Bestow', '[of] ' + source);
@@ -2169,12 +2169,6 @@ exports.BattleMovedex = {
 		boosts: {
 			spe: -2,
 		},
-		onTryHit: function (target) {
-			if (!target.runStatusImmunity('powder')) {
-				this.add('-immune', target, '[msg]');
-				return null;
-			}
-		},
 		secondary: false,
 		target: "allAdjacentFoes",
 		type: "Grass",
@@ -2573,7 +2567,10 @@ exports.BattleMovedex = {
 		boosts: {
 			def: 1,
 		},
-		volatileStatus: 'DefenseCurl',
+		volatileStatus: 'defensecurl',
+		effect: {
+			noCopy: true,
+		},
 		secondary: false,
 		target: "self",
 		type: "Normal",
@@ -2641,6 +2638,10 @@ exports.BattleMovedex = {
 			onBeforeMovePriority: 100,
 			onBeforeMove: function (pokemon) {
 				this.debug('removing Destiny Bond before attack');
+				pokemon.removeVolatile('destinybond');
+			},
+			onBeforeSwitchOutPriority: 1,
+			onBeforeSwitchOut: function (pokemon) {
 				pokemon.removeVolatile('destinybond');
 			},
 		},
@@ -4907,6 +4908,7 @@ exports.BattleMovedex = {
 			if (target.volatiles['miracleeye']) return false;
 		},
 		effect: {
+			noCopy: true,
 			onStart: function (pokemon) {
 				this.add('-start', pokemon, 'Foresight');
 			},
@@ -6986,7 +6988,7 @@ exports.BattleMovedex = {
 		basePower: 100,
 		category: "Physical",
 		desc: "Lowers the user's Defense by 1 stage. This move cannot be used successfully unless the user's current form, while considering Transform, is Hoopa Unbound. If this move is successful, it breaks through the target's Detect, King's Shield, Protect, or Spiky Shield for this turn, allowing other Pokemon to attack the target normally. If the target's side is protected by Crafty Shield, Mat Block, Quick Guard, or Wide Guard, that protection is also broken for this turn and other Pokemon may attack the target's side normally.",
-		shortDesc: "Hoopa-U: Lowers user's Def. by 1; breaks protection.",
+		shortDesc: "Hoopa-U: Lowers user's Def by 1; breaks protection.",
 		id: "hyperspacefury",
 		isViable: true,
 		name: "Hyperspace Fury",
@@ -8973,6 +8975,7 @@ exports.BattleMovedex = {
 			if (target.volatiles['foresight']) return false;
 		},
 		effect: {
+			noCopy: true,
 			onStart: function (pokemon) {
 				this.add('-start', pokemon, 'Miracle Eye');
 			},
@@ -9603,6 +9606,7 @@ exports.BattleMovedex = {
 		flags: {protect: 1, mirror: 1},
 		volatileStatus: 'nightmare',
 		effect: {
+			noCopy: true,
 			onStart: function (pokemon) {
 				if (pokemon.status !== 'slp') {
 					return false;
@@ -10245,12 +10249,6 @@ exports.BattleMovedex = {
 		pp: 35,
 		priority: 0,
 		flags: {powder: 1, protect: 1, reflectable: 1, mirror: 1},
-		onTryHit: function (target) {
-			if (!target.runStatusImmunity('powder')) {
-				this.add('-immune', target, '[msg]');
-				return null;
-			}
-		},
 		status: 'psn',
 		secondary: false,
 		target: "normal",
@@ -10327,12 +10325,6 @@ exports.BattleMovedex = {
 		pp: 20,
 		priority: 1,
 		flags: {powder: 1, protect: 1, reflectable: 1, mirror: 1, authentic: 1},
-		onTryHit: function (target) {
-			if (!target.runStatusImmunity('powder')) {
-				this.add('-immune', target, '[msg]');
-				return null;
-			}
-		},
 		volatileStatus: 'powder',
 		effect: {
 			duration: 1,
@@ -11319,6 +11311,7 @@ exports.BattleMovedex = {
 			this.add('-start', source, 'typechange', '[from] move: Reflect Type', '[of] ' + target);
 			source.types = target.getTypes(true);
 			source.addedType = target.addedType;
+			source.knownType = target.side === source.side && target.knownType;
 		},
 		secondary: false,
 		target: "normal",
@@ -11331,13 +11324,14 @@ exports.BattleMovedex = {
 		basePower: 0,
 		category: "Status",
 		desc: "The user cures its burn, poison, or paralysis.",
-		shortDesc: "Removes status from the user.",
+		shortDesc: "User cures its burn, poison, or paralysis.",
 		id: "refresh",
 		name: "Refresh",
 		pp: 20,
 		priority: 0,
 		flags: {snatch: 1},
 		onHit: function (pokemon) {
+			if (pokemon.status in {'': 1, 'slp': 1, 'frz': 1}) return false;
 			pokemon.cureStatus();
 		},
 		secondary: false,
@@ -12952,12 +12946,6 @@ exports.BattleMovedex = {
 		pp: 15,
 		priority: 0,
 		flags: {powder: 1, protect: 1, reflectable: 1, mirror: 1},
-		onTryHit: function (target) {
-			if (!target.runStatusImmunity('powder')) {
-				this.add('-immune', target, '[msg]');
-				return null;
-			}
-		},
 		status: 'slp',
 		secondary: false,
 		target: "normal",
@@ -13080,6 +13068,7 @@ exports.BattleMovedex = {
 		flags: {protect: 1, mirror: 1, nonsky: 1},
 		volatileStatus: 'smackdown',
 		effect: {
+			noCopy: true,
 			onStart: function (pokemon) {
 				let applies = false;
 				if (pokemon.hasType('Flying') || pokemon.hasAbility('levitate')) applies = true;
@@ -13601,12 +13590,6 @@ exports.BattleMovedex = {
 		pp: 15,
 		priority: 0,
 		flags: {powder: 1, protect: 1, reflectable: 1, mirror: 1},
-		onTryHit: function (target) {
-			if (!target.runStatusImmunity('powder')) {
-				this.add('-immune', target, '[msg]');
-				return null;
-			}
-		},
 		status: 'slp',
 		secondary: false,
 		target: "normal",
@@ -13734,6 +13717,7 @@ exports.BattleMovedex = {
 		},
 		volatileStatus: 'stockpile',
 		effect: {
+			noCopy: true,
 			onStart: function (target) {
 				this.effectData.layers = 1;
 				this.add('-start', target, 'stockpile' + this.effectData.layers);
@@ -13954,12 +13938,6 @@ exports.BattleMovedex = {
 		pp: 30,
 		priority: 0,
 		flags: {powder: 1, protect: 1, reflectable: 1, mirror: 1},
-		onTryHit: function (target) {
-			if (!target.runStatusImmunity('powder')) {
-				this.add('-immune', target, '[msg]');
-				return null;
-			}
-		},
 		status: 'par',
 		secondary: false,
 		target: "normal",
@@ -14309,8 +14287,8 @@ exports.BattleMovedex = {
 			let myItem = source.takeItem();
 			if (target.item || source.item || (!yourItem && !myItem) ||
 					(myItem.onTakeItem && myItem.onTakeItem(myItem, target) === false)) {
-				if (yourItem) target.item = yourItem;
-				if (myItem) source.item = myItem;
+				if (yourItem) target.item = yourItem.id;
+				if (myItem) source.item = myItem.id;
 				return false;
 			}
 			this.add('-activate', source, 'move: Trick', '[of] ' + target);
@@ -14975,6 +14953,7 @@ exports.BattleMovedex = {
 		flags: {protect: 1, reflectable: 1, mirror: 1, authentic: 1},
 		volatileStatus: 'torment',
 		effect: {
+			noCopy: true,
 			onStart: function (pokemon) {
 				this.add('-start', pokemon, 'Torment');
 			},
@@ -15129,8 +15108,8 @@ exports.BattleMovedex = {
 			let myItem = source.takeItem();
 			if (target.item || source.item || (!yourItem && !myItem) ||
 					(myItem.onTakeItem && myItem.onTakeItem(myItem, target) === false)) {
-				if (yourItem) target.item = yourItem;
-				if (myItem) source.item = myItem;
+				if (yourItem) target.item = yourItem.id;
+				if (myItem) source.item = myItem.id;
 				return false;
 			}
 			this.add('-activate', source, 'move: Trick', '[of] ' + target);
@@ -15168,6 +15147,16 @@ exports.BattleMovedex = {
 			if (target.hasType('Ghost')) return false;
 			if (!target.addType('Ghost')) return false;
 			this.add('-start', target, 'typeadd', 'Ghost', '[from] move: Trick-or-Treat');
+
+			if (target.side.active.length === 2 && target.position === 1) {
+				// Curse Glitch
+				const decision = this.willMove(target);
+				if (decision && decision.move.id === 'curse') {
+					decision.targetLoc = -1;
+					decision.targetSide = target.side;
+					decision.targetPosition = 0;
+				}
+			}
 		},
 		secondary: false,
 		target: "normal",
@@ -16221,7 +16210,7 @@ exports.BattleMovedex = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		desc: "Causes the target to fall asleep at the end of the next turn. If the target is still on the field and does not have a major status condition at that time, it falls asleep, and this effect cannot be prevented by Safeguard or a substitute. Fails if the target cannot fall asleep or if it already has a major status condition.",
+		desc: "Causes the target to fall asleep at the end of the next turn. Fails when used if the target cannot fall asleep or if it already has a major status condition. At the end of the next turn, if the target is still on the field, does not have a major status condition, and can fall asleep, it falls asleep. If the target becomes affected, this effect cannot be prevented by Safeguard or a substitute, or by falling asleep and waking up during the effect.",
 		shortDesc: "Puts the target to sleep after 1 turn.",
 		id: "yawn",
 		name: "Yawn",
