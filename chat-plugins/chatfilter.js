@@ -13,7 +13,7 @@ Config.chatfilter = function (message, user, room, connection) {
 		if (message.toLowerCase().indexOf(bannedMessages[x]) > -1 && bannedMessages[x] !== '' && message.substr(0, 1) !== '/') {
 			if (user.locked) return false;
 			Punishments.lock(user, Date.now() + 7 * 24 * 60 * 60 * 1000, "Said a banned word: " + bannedMessages[x]);
-			user.popup('You have been automatically locked for sending a message containing a banned word.');
+			user.popup('You have been locked for saying a banned word.');
 			Rooms('staff').add('[PornMonitor] ' + (room ? '(' + room + ') ' : '') + Tools.escapeHTML(user.name) +
 			' was automatically locked for trying to say "' + message + '"').update();
 			fs.appendFile('logs/modlog/modlog_staff.txt', '[' + (new Date().toJSON()) + '] (staff) ' + user.name + ' was locked from talking by the Server (' +
