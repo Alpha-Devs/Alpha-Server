@@ -1477,6 +1477,36 @@ exports.commands = {
 	},
 	deroomauthallhelp: ["/deroomauthall - Deauths all roomauthed users. Requires: ~"],
 	
+	deauthall: function (target, room, user) {
+		if (!this.can('root', null, room)) return false;
+		if (!auth) return this.errorReply("There is no auth to delete.");
+		if (!target) {
+			user.lastCommand = '/deauthall';
+			this.errorReply("ALL AUTH WILL BE GONE, ARE YOU SURE?");
+			this.errorReply("To confirm, use: /deauthall confirm");
+			return;
+		}
+		if (user.lastCommand !== '/deauthall' || target !== 'confirm') {
+			return this.parse('/help deauthall');
+		}
+		let count = 0;
+		for (let userid in room.auth) {
+			if (room.auth[userid] === '+', '$', '%', '@', '&', '#') {
+				delete auth[userid];
+				if (userid in room.users) room.users[userid].updateIdentity(room.id);
+				count++;
+			}
+		}
+		if (!count) {
+			return this.sendReply("(This server has no auth)");
+		}
+		if (room.chatRoomData) {
+			Rooms.global.writeChatRoomData();
+		}
+		this.addModCommand("All " + count + " roomauth has been cleared by " + user.name + ".");
+	},
+	deroomauthallhelp: ["/deroomauthall - Deauths all roomauthed users. Requires: ~"],
+	
 	deroomvoiceall: function (target, room, user) {
 		if (!this.can('editroom', null, room)) return false;
 		if (!room.auth) return this.errorReply("Room does not have roomauth.");
