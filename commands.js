@@ -1747,9 +1747,6 @@ exports.commands = {
 	deroomauth: 'roomdeauth',
 	roomdeauth: function (target, room, user) {
 		return this.parse('/roomdemote ' + target + ', deauth');
-	}
-	deauthall: function (target, room, user) {
-		return this.parse('/deauth ' + staffRoom.auth + ', deauth');
 	},
 
 	modchat: function (target, room, user) {
