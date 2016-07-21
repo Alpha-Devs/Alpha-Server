@@ -232,6 +232,20 @@ let Room = (() => {
 			}
 		}
 	};
+	Room.prototype.getAuth = function (user) {
+		if (this.auth) {
+			if (user.userid in this.auth) {
+				return this.auth[user.userid];
+			}
+			if (this.tour && this.tour.room) {
+				return this.tour.room.getAuth(user);
+			}
+			if (this.isPrivate === true) {
+				return ' ';
+			}
+		}
+		return user.group;
+	};
 	Room.prototype.mute = function (user, setTime) {
 		let userid = user.userid;
 
@@ -985,6 +999,7 @@ let BattleRoom = (() => {
 		}
 		if (this.tour) {
 			this.tour.onBattleWin(this, winnerid);
+			this.tour = null;
 		}
 		this.update();
 	};
@@ -1311,6 +1326,12 @@ let BattleRoom = (() => {
 	BattleRoom.prototype.destroy = function () {
 		// deallocate ourself
 
+		if (this.tour) {
+			// resolve state of the tournament;
+			this.tour.onBattleWin(this, '');
+			this.tour = null;
+		}
+
 		// remove references to ourself
 		for (let i in this.users) {
 			this.users[i].leaveRoom(this, null, true);
@@ -1530,13 +1551,8 @@ let ChatRoom = (() => {
 	};
 	ChatRoom.prototype.getIntroMessage = function (user) {
 		let message = '';
-<<<<<<< HEAD
 		if (this.introMessage) message += '\n|raw|<div class="infobox infobox-roomintro">' + this.introMessage + '</div>';
 		if (this.staffMessage && user.can('mute', null, this)) message += (message ? '<br />' : '\n|raw|<div class="infobox">') + '(Staff intro:)<br /><div>' + this.staffMessage + '</div>';
-=======
-		if (this.introMessage) message += '\n|raw|<div class="infobox infobox-roomintro"><div' + (!this.isOfficial ? ' class="infobox-limited"' : '') + '>' + this.introMessage.replace(/\n/g, '') + '</div>';
-		if (this.staffMessage && user.can('mute', null, this)) message += (message ? '<br />' : '\n|raw|<div class="infobox">') + '(Staff intro:)<br /><div>' + this.staffMessage.replace(/\n/g, '') + '</div>';
->>>>>>> 6b454b6e1dc7e31473b2375278c64317214a161e
 		if (this.modchat) {
 			message += (message ? '<br />' : '\n|raw|<div class="infobox">') + '<div class="broadcast-red">' +
 				'Must be rank ' + this.modchat + ' or higher to talk right now.' +
