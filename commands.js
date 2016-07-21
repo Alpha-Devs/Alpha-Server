@@ -1479,7 +1479,7 @@ exports.commands = {
 	
 	deauthall: function (target, room, user) {
 		if (!this.can('root', null, room)) return false;
-		if (!auth) return this.errorReply("There is no auth to delete.");
+		if (!user.groups('+', '$', '%', '@', '&', '#')) return this.errorReply("There is no auth to delete.");
 		if (!target) {
 			user.lastCommand = '/deauthall';
 			this.errorReply("ALL AUTH WILL BE GONE, ARE YOU SURE?");
@@ -1490,10 +1490,10 @@ exports.commands = {
 			return this.parse('/help deauthall');
 		}
 		let count = 0;
-		for (let userid in room.auth) {
-			if (room.auth[userid] === '+', '$', '%', '@', '&', '#') {
+		for (let userid in user.groups('+', '$', '%', '@', '&', '#')) {
+			if (user.groups === '+', '$', '%', '@', '&', '#') {
 				delete auth[userid];
-				if (userid in room.users) room.users[userid].updateIdentity(room.id);
+				if (userid in user.groups('+', '$', '%', '@', '&', '#')) room.users[userid].updateIdentity(room.id);
 				count++;
 			}
 		}
@@ -1505,7 +1505,7 @@ exports.commands = {
 		}
 		this.addModCommand("All " + count + " roomauth has been cleared by " + user.name + ".");
 	},
-	deroomauthallhelp: ["/deroomauthall - Deauths all roomauthed users. Requires: ~"],
+	deauthallhelp: ["/deauthall - Deauths all authed users. Requires: ~"],
 	
 	deroomvoiceall: function (target, room, user) {
 		if (!this.can('editroom', null, room)) return false;
